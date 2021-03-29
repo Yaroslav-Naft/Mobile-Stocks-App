@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
   return(
     <View>
-      <Text>Login</Text>
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('Login')
+      }}>
+        <Text>To Login</Text>
+      </TouchableOpacity>
     </View>
   )
 }
