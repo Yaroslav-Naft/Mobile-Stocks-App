@@ -8,5 +8,18 @@
 - https://www.questrade.com/self-directed-investing/trading-platforms
 - Prototype https://builderx.io/app/jw1rx8pfgj4sgoks8sco0gww8080g8
 
-##Prototype - M1
+## Prototype - M1
 ![](https://i.imgur.com/Kbx1e27.png)
+
+### Color palette
+![](https://i.imgur.com/OnTgHjg.png)
+
+COLOR | HEX | RGB
+------------ | -------------| -------------
+Lipstick Red | #E63946 | 230, 57, 70
+White | #ffffff | 255, 255, 255
+Grey | #D9D9D9 | 217, 217, 217
+Nile Blue | #A8DADC | 168, 218, 220
+Night Blue | #457B9D | 69, 123, 157
+Indanthrone Blue  | #1D3557| 29, 53, 87
+
