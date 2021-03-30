@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import LoginScreenNavigator from './src/components/navigation/LoginScreenNavigator';
 import BottomTabNavigator from './src/components/navigation/BottomTabNavigator';
+import MainPageLoginNavigator from './src/components/navigation/MainPageLoginNavigator';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Root" component={BottomTabNavigator} />
+          <Stack.Screen name="Root" component={MainPageLoginNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
