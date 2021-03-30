@@ -19,9 +19,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
   text: {
+    color: '#FFFFFF',
     fontSize: 10
   },
   companyText: {
+    color: '#FFFFFF',
     fontSize: 8
   }
 });
