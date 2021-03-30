@@ -10,6 +10,11 @@ function SearchScreenNavigator() {
       <SearchScreenStack.Screen 
         name="Search"
         component={SearchScreen}
+        options={{
+          headerStyle: {backgroundColor: '#1D3557'},
+          headerTitleStyle: {color: '#FFFFFF'},
+          cardStyle: {backgroundColor: '#1D3557'}
+        }}
       />
       <SearchScreenStack.Screen 
         name="Detail"

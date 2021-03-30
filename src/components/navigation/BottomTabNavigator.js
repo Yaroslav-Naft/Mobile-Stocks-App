@@ -5,7 +5,6 @@ import HomeScreenNavigator from './HomeScreenNavigator';
 import SearchScreenNavigator from './SearchScreenNavigator';
 
 const BottomTab = createBottomTabNavigator();
-
 export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator>

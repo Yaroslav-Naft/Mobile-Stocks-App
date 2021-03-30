@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native';
+import { View, SafeAreaView, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SearchBar from '../components/SearchBar';
 import SearchListItem from '../components/SearchListItem';
@@ -14,7 +14,7 @@ const SearchScreen = ({navigation}) => {
   ]
 
   return(
-    <View style={styles.background}>
+    <View>
       <SearchBar
         term={term} 
         onTermChange={(newTerm) => setTerm(newTerm)}
@@ -37,11 +37,5 @@ const SearchScreen = ({navigation}) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  background: {
-    backgroundColor: '#1D3557'
-  }
-})
 
 export default SearchScreen;
