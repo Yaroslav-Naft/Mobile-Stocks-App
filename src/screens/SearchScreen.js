@@ -31,7 +31,7 @@ const SearchScreen = ({navigation}) => {
 const buttonClicked = s => {
   fetchData()
   console.log("button clicked")
-  console.log(stock['bestMatches'][0]['1. symbol'])
+  setStockSymbol(stock['bestMatches'][0]['1. symbol'])
   //setStockSymbol(stock["Global Quote"]["01. symbol"])
   //setStockPrice(stock["Global Quote"]["05. price"])
 }
@@ -52,13 +52,12 @@ useEffect(() => {
       <SafeAreaView>
         <FlatList
           keyExtractor={item => item}
-          data={stock}
+          data={stock['bestMatches']}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Detail', item)
               }}>
-                
                 <SearchListItem item={item} />
               </TouchableOpacity>
             )
