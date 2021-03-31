@@ -19,10 +19,10 @@ const LoginScreen = ({ navigation }) => {
       const userId = res.user.uid
       const userRef = firebase.firestore().collection("users")
       const document = await userRef.doc(userId).get()
-      // if (!document.exists) {
-      //   alert("User doesn't exist")
-      //   return
-      // }
+      if (!document.exists) {
+        alert("User doesn't exist")
+        return
+      }
       const currentUser = document.data()
       console.log(currentUser)
       // setUser(currentUser)
