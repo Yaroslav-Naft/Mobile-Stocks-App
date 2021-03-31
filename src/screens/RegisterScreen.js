@@ -23,6 +23,8 @@ const RegisterScreen = ({ navigation }) => {
       const data = {
         id: userId,
         email,
+        portfolio: [],
+        cash: 50000,
       }
       const useRef = await firebase.firestore().collection("users")
       await useRef.doc(userId).set(data)
