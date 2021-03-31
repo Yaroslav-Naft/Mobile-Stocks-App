@@ -14,4 +14,4 @@ function TradingScreenNavigator() {
     );
 }
 
-export default HomeScreenNavigator;
+export default TradingScreenNavigator;

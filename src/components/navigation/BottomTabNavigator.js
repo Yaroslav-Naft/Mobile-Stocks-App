@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo, Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import HomeScreenNavigator from './HomeScreenNavigator';
 import SearchScreenNavigator from './SearchScreenNavigator';
+import TradingScreenNavigator from './TradingScreenNavigator';
 
 const BottomTab = createBottomTabNavigator();
 export default function BottomTabNavigator() {
@@ -17,7 +18,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Trading"
-        component={HomeScreenNavigator}
+        component={TradingScreenNavigator}
         options={{
           tabBarIcon: () => <Ionicons name="bar-chart-outline" size={30} color="black" />
         }}
