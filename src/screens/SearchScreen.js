@@ -27,12 +27,10 @@ const SearchScreen = ({navigation}) => {
     console.log(stock)
 }
 
-
 useEffect(() => {
   fetchData();
   console.log(stock)
 }, []);
-
 
 
   return(
