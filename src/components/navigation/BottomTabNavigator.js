@@ -4,6 +4,7 @@ import { Entypo, Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vec
 import HomeScreenNavigator from './HomeScreenNavigator';
 import SearchScreenNavigator from './SearchScreenNavigator';
 import TradingScreenNavigator from './TradingScreenNavigator';
+import WatchScreenNavigator from './WatchScreenNavigator'
 
 const BottomTab = createBottomTabNavigator();
 export default function BottomTabNavigator() {
@@ -26,7 +27,7 @@ export default function BottomTabNavigator() {
 
       <BottomTab.Screen
         name="Watch"
-        component={HomeScreenNavigator}
+        component={WatchScreenNavigator}
         options={{
           tabBarIcon: () => <MaterialCommunityIcons name="currency-usd-circle-outline" size={30} color="black" />
         }}

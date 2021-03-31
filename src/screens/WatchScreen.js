@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const TradingScreen = () => {
+const WatchList = () => {
     return (
         <View>
-            <Text>Trading</Text>
+            <Text>WatchList</Text>
         </View>
     )
 }
 
-export default TradingScreen;
+export default WatchList;
