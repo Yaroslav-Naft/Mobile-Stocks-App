@@ -41,7 +41,20 @@ export default function App() {
       <NavigationContainer>
         {user ? (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen
+              name="Home"
+              component={BottomTabNavigator}
+              options={{
+                headerTitle: "Logout",
+                headerRight: () => (
+                  <Button
+                    onPress={() => alert("This is a button!")}
+                    title="Info"
+                    color="#00cc00"
+                  />
+                ),
+              }}
+            />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
