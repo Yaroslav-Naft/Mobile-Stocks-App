@@ -7,13 +7,13 @@ import SearchListItem from '../components/SearchListItem'
 const SearchScreen = ({navigation}) => {
   const [term, setTerm] = useState('IBM')
   const [hasError, setErrors] = useState(false)
-  const [stock, setStock] = useState({})
+  const [stock, setStock] = useState()
 
   async function fetchData() {
     const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${term}&apikey=WAD33GWL180QLM8L`);
     res
     .json()
-    .then(res => setStock(res))
+    .then(res => setStock(res['bestMatches']))
     .catch(err => setErrors(err))
   }
 
@@ -30,7 +30,7 @@ const SearchScreen = ({navigation}) => {
       <SafeAreaView>
         <FlatList
           keyExtractor={item => item['1. symbol']}
-          data={stock['bestMatches']}
+          data={stock}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity onPress={() => {
