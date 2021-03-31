@@ -5,6 +5,7 @@ import HomeScreenNavigator from './HomeScreenNavigator';
 import SearchScreenNavigator from './SearchScreenNavigator';
 import TradingScreenNavigator from './TradingScreenNavigator';
 import WatchScreenNavigator from './WatchScreenNavigator'
+import UserScreenNavigator from './UserScreenNavigator'
 
 const BottomTab = createBottomTabNavigator();
 export default function BottomTabNavigator() {
@@ -43,7 +44,7 @@ export default function BottomTabNavigator() {
 
       <BottomTab.Screen
         name="User"
-        component={SearchScreenNavigator}
+        component={UserScreenNavigator}
         options={{
           tabBarIcon: () => <FontAwesome name="user-circle-o" size={30} color="black" />
         }}
