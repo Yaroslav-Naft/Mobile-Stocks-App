@@ -29,7 +29,12 @@ const SearchScreen = ({navigation}) => {
 }
 
 const buttonClicked = s => {
-
+  s.preventDefault()
+  fetchData()
+  console.log("button clicked")
+  console.log(stock)
+  //setStockSymbol(stock["Global Quote"]["01. symbol"])
+  //setStockPrice(stock["Global Quote"]["05. price"])
 }
 
 
@@ -42,17 +47,6 @@ useEffect(() => {
 
 
 
-
-
-useEffect(() => {
-  effect
-  return () => {
-    cleanup
-  }
-}, [stockSymbol, sto])
-
-
-
   return(
     <View>
       <SearchBar
@@ -60,7 +54,6 @@ useEffect(() => {
         onTermChange={(newTerm) => setTerm(newTerm)}
         onTermSubmit={() => {buttonClicked}} />
       <SafeAreaView>
-
         <FlatList
           keyExtractor={item => item}
           data={stock}
