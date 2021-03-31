@@ -1,9 +1,9 @@
 import { useGestureHandlerRef } from "@react-navigation/stack"
 import React, { useState, useContext } from "react"
-import { View, Text, StyleSheet, Button } from "react-native"
+import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
-// import { AuthContext } from "../context/AuthProvider"
+import '../../assets/Logo.png'
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
@@ -28,11 +28,17 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require("../../assets/Logo.png")}
+      />
+
       <TextInput
         style={styles.input}
         onChangeText={(email) => setEmail(email)}
         value={email}
+        placeholder="email"
       />
       <TextInput
         style={styles.input}
@@ -41,25 +47,51 @@ const LoginScreen = ({ navigation }) => {
         placeholder="password"
         keyboardType="numeric"
       />
-      <Button title="Login" onPress={() => loginUser(email, password)} />
+      <Button
+        title="Login"
+        onPress={() => loginUser(email, password)}
+      />
+
 
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Register")
         }}
       >
-        <Text>Don't have an account?</Text>
+        <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "auto",
+    backgroundColor: "white",
+
   },
+
+  logo: {
+    height: 150,
+    width: 270,
+    marginBottom: 150
+  },
+
+  input: {
+    height: 60,
+    width: 400,
+    backgroundColor: "#D9D9D9",
+    margin: 20,
+    borderRadius: 10,
+    fontSize: 20,
+    padding: 20
+  },
+
+
 })
 
 export default LoginScreen
