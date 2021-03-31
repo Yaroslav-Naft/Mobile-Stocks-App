@@ -1,16 +1,16 @@
 import React from "react"
-import { Button } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
-import HomeScreen from "../../screens/HomeScreen"
+import UserScreen from "../../screens/UserScreen"
+import { Button } from "react-native"
 import { signOut } from "../../firebase/config"
 
-const HomeScreenStack = createStackNavigator()
-function HomeScreenNavigator() {
+const UserScreenStack = createStackNavigator()
+function UserScreenNavigator() {
   return (
-    <HomeScreenStack.Navigator>
-      <HomeScreenStack.Screen
-        name="Home"
-        component={HomeScreen}
+    <UserScreenStack.Navigator>
+      <UserScreenStack.Screen
+        name="User"
+        component={UserScreen}
         options={{
           headerRight: () => (
             <Button
@@ -23,8 +23,8 @@ function HomeScreenNavigator() {
           ),
         }}
       />
-    </HomeScreenStack.Navigator>
+    </UserScreenStack.Navigator>
   )
 }
 
-export default HomeScreenNavigator
+export default UserScreenNavigator

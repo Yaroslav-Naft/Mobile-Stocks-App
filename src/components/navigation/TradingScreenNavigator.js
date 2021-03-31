@@ -1,16 +1,16 @@
 import React from "react"
-import { Button } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
-import HomeScreen from "../../screens/HomeScreen"
+import TradingScreen from "../../screens/TradingScreen"
 import { signOut } from "../../firebase/config"
+import { Button } from "react-native"
 
-const HomeScreenStack = createStackNavigator()
-function HomeScreenNavigator() {
+const TradingScreenStack = createStackNavigator()
+function TradingScreenNavigator() {
   return (
-    <HomeScreenStack.Navigator>
-      <HomeScreenStack.Screen
-        name="Home"
-        component={HomeScreen}
+    <TradingScreenStack.Navigator>
+      <TradingScreenStack.Screen
+        name="Trading"
+        component={TradingScreen}
         options={{
           headerRight: () => (
             <Button
@@ -23,8 +23,8 @@ function HomeScreenNavigator() {
           ),
         }}
       />
-    </HomeScreenStack.Navigator>
+    </TradingScreenStack.Navigator>
   )
 }
 
-export default HomeScreenNavigator
+export default TradingScreenNavigator

@@ -1,16 +1,16 @@
 import React from "react"
-import { Button } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
-import HomeScreen from "../../screens/HomeScreen"
+import WatchScreen from "../../screens/WatchScreen"
+import { Button } from "react-native"
 import { signOut } from "../../firebase/config"
 
-const HomeScreenStack = createStackNavigator()
-function HomeScreenNavigator() {
+const WatchScreenStack = createStackNavigator()
+function WatchScreenNavigator() {
   return (
-    <HomeScreenStack.Navigator>
-      <HomeScreenStack.Screen
-        name="Home"
-        component={HomeScreen}
+    <WatchScreenStack.Navigator>
+      <WatchScreenStack.Screen
+        name="Watch"
+        component={WatchScreen}
         options={{
           headerRight: () => (
             <Button
@@ -23,8 +23,8 @@ function HomeScreenNavigator() {
           ),
         }}
       />
-    </HomeScreenStack.Navigator>
+    </WatchScreenStack.Navigator>
   )
 }
 
-export default HomeScreenNavigator
+export default WatchScreenNavigator

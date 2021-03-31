@@ -7,7 +7,8 @@
 - Consume a Stock Price API alphavantage.co
 - https://www.questrade.com/self-directed-investing/trading-platforms
 - Prototype https://builderx.io/app/jw1rx8pfgj4sgoks8sco0gww8080g8
-
+## Logo
+![](https://i.imgur.com/GZjQDl5.png)
 ## Prototype - M1
 ![](https://i.imgur.com/Kbx1e27.png)
 ![](https://i.imgur.com/dvN1jn4.png)
