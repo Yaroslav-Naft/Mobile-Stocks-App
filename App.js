@@ -39,15 +39,15 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {/* {user ? (
+        {user ? (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={BottomTabNavigator} />
           </Stack.Navigator>
-        ) : ( */}
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Root" component={LoginScreenNavigator} />
-        </Stack.Navigator>
-        {/* )} */}
+        ) : (
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Root" component={LoginScreenNavigator} />
+            </Stack.Navigator>
+          )}
       </NavigationContainer>
     </SafeAreaProvider>
   )
