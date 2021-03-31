@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 const SearchListItem = (props) => {
-  console.log(props.item)
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{props.item['1. symbol']}</Text>
