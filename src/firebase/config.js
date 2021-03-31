@@ -11,6 +11,14 @@ const firebaseConfig = {
   appId: "1:313042627457:web:5e4886ab9f47e19614d680",
 }
 
+export const signOut = async () => {
+  try {
+    await firebase.auth().signOut()
+  } catch (e) {
+    alert(e)
+  }
+}
+
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }

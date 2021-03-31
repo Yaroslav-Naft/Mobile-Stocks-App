@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
-import { StyleSheet, ActivityIndicator } from "react-native"
+import { StyleSheet, ActivityIndicator, Button } from "react-native"
 import LoginScreenNavigator from "./src/components/navigation/LoginScreenNavigator"
 import BottomTabNavigator from "./src/components/navigation/BottomTabNavigator"
 import { firebase } from "./src/firebase/config"
 
 import MainPageLoginNavigator from "./src/components/navigation/MainPageLoginNavigator"
-// import { AuthProvider } from "./src/context/AuthProvider"
+import { AuthContext, AuthProvider } from "./src/context/AuthProvider"
 
 const Stack = createStackNavigator()
 export default function App() {
@@ -17,10 +17,10 @@ export default function App() {
 
   useEffect(() => {
     const userRef = firebase.firestore().collection("users")
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    firebase.auth().onAuthStateChanged((currentUser) => {
+      if (currentUser) {
         userRef
-          .doc(user.uid)
+          .doc(currentUser.uid)
           .get()
           .then((document) => {
             const userData = document.data()
@@ -28,10 +28,12 @@ export default function App() {
             setUser(userData)
           })
           .catch((e) => {
-            setLoading(false)
+            setLoading(true)
+            setUser(null)
           })
       } else {
-        setLoading(false)
+        setLoading(true)
+        setUser(null)
       }
     })
   }, [])

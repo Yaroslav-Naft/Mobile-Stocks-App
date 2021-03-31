@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
-import '../../assets/Logo.png'
+import "../../assets/Logo.png"
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
@@ -29,29 +29,23 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require("../../assets/Logo.png")}
-      />
+      <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
       <TextInput
         style={styles.input}
         onChangeText={(email) => setEmail(email)}
         value={email}
         placeholder="email"
+        autoCompleteType="email"
       />
       <TextInput
         style={styles.input}
         onChangeText={(password) => setPassword(password)}
         value={password}
         placeholder="password"
-        keyboardType="numeric"
+        secureTextEntry={true}
       />
-      <Button
-        title="Login"
-        onPress={() => loginUser(email, password)}
-      />
-
+      <Button title="Login" onPress={() => loginUser(email, password)} />
 
       <TouchableOpacity
         onPress={() => {
@@ -65,20 +59,18 @@ const LoginScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     margin: "auto",
     backgroundColor: "white",
-
   },
 
   logo: {
     height: 150,
     width: 270,
-    marginBottom: 150
+    marginBottom: 150,
   },
 
   input: {
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
     fontSize: 20,
-    padding: 20
+    padding: 20,
   },
 })
 
