@@ -9,8 +9,6 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  // const { user, setUser } = useContext(AuthContext)
-
   const loginUser = async (email, password) => {
     try {
       const res = await firebase
@@ -24,8 +22,6 @@ const LoginScreen = ({ navigation }) => {
         return
       }
       const currentUser = document.data()
-      console.log(currentUser)
-      // setUser(currentUser)
     } catch (e) {
       alert(e)
     }
