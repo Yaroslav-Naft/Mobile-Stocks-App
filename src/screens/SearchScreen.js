@@ -29,15 +29,12 @@ const SearchScreen = ({navigation}) => {
 }
 
 const buttonClicked = s => {
-  s.preventDefault()
   fetchData()
   console.log("button clicked")
-  console.log(stock)
+  console.log(stock['bestMatches'][0]['1. symbol'])
   //setStockSymbol(stock["Global Quote"]["01. symbol"])
   //setStockPrice(stock["Global Quote"]["05. price"])
 }
-
-
 
 
 useEffect(() => {
@@ -46,13 +43,12 @@ useEffect(() => {
 }, []);
 
 
-
   return(
     <View>
       <SearchBar
         term={term} 
         onTermChange={(newTerm) => setTerm(newTerm)}
-        onTermSubmit={() => {buttonClicked}} />
+        onTermSubmit={() => {buttonClicked()}} />
       <SafeAreaView>
         <FlatList
           keyExtractor={item => item}
@@ -62,7 +58,7 @@ useEffect(() => {
               <TouchableOpacity onPress={() => {
                 navigation.navigate('Detail', item)
               }}>
-                <Text></Text>
+                
                 <SearchListItem item={item} />
               </TouchableOpacity>
             )
