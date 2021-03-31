@@ -24,8 +24,16 @@ const SearchScreen = ({navigation}) => {
     .json()
     .then(res => setStock(res))
     .catch(err => setErrors(err));
-    console.log(stock)
+    //!!stock ? (console.log(stock)) : console.log("nothing")
+  
 }
+
+const buttonClicked = s => {
+
+}
+
+
+
 
 useEffect(() => {
   fetchData();
@@ -33,15 +41,28 @@ useEffect(() => {
 }, []);
 
 
+
+
+
+useEffect(() => {
+  effect
+  return () => {
+    cleanup
+  }
+}, [stockSymbol, sto])
+
+
+
   return(
     <View>
       <SearchBar
         term={term} 
         onTermChange={(newTerm) => setTerm(newTerm)}
-        onTermSubmit={() => {fetchData()}} />
+        onTermSubmit={() => {buttonClicked}} />
       <SafeAreaView>
+
         <FlatList
-          keyExtractor={item => item["Global Quote"]["01. symbol"]}
+          keyExtractor={item => item}
           data={stock}
           renderItem={({ item }) => {
             return (
