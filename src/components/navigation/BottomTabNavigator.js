@@ -18,20 +18,22 @@ export default function BottomTabNavigator({ user }) {
     <BottomTab.Navigator>
       <BottomTab.Screen
         name="Home"
-        component={HomeScreenNavigator}
         options={{
           tabBarIcon: () => <Entypo name="home" size={30} color="black" />,
         }}
-      />
+      >
+        {(props) => <HomeScreenNavigator {...props} user={user} />}
+      </BottomTab.Screen>
       <BottomTab.Screen
         name="Trading"
-        component={TradingScreenNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name="bar-chart-outline" size={30} color="black" />
           ),
         }}
-      />
+      >
+        {(props) => <TradingScreenNavigator {...props} user={user} />}
+      </BottomTab.Screen>
 
       <BottomTab.Screen
         name="Watch"
