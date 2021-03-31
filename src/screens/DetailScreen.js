@@ -20,7 +20,7 @@ const DetailScreen = ({route}) => {
   return(
     <View>
       { 
-        stock ?
+        !!stock ?
           <View>
             <Text>{stock['Global Quote']['01. symbol']}</Text>
             <Text>{Number(stock['Global Quote']['05. price']).toFixed(2)}</Text>
