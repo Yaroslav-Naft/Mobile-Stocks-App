@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, FlatList } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import SearchBar from '../components/SearchBar';
-import SearchListItem from '../components/SearchListItem';
+import React, { useState, useEffect } from 'react'
+import { View, SafeAreaView, FlatList } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import SearchBar from '../components/SearchBar'
+import SearchListItem from '../components/SearchListItem'
 
 const SearchScreen = ({navigation}) => {
-  const [term, setTerm] = useState('IBM');
-  const [hasError, setErrors] = useState(false);
-  const [stock, setStock] = useState({});
-  
+  const [term, setTerm] = useState('IBM')
+  const [hasError, setErrors] = useState(false)
+  const [stock, setStock] = useState({})
+
   async function fetchData() {
     const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${term}&apikey=WAD33GWL180QLM8L`);
     res
     .json()
     .then(res => setStock(res))
-    .catch(err => setErrors(err));
+    .catch(err => setErrors(err))
   }
 
   useEffect(() => {
-    fetchData();
-    console.log(stock)
-  }, []);
+    fetchData()
+  }, [])
 
   return(
     <View>
@@ -30,7 +29,7 @@ const SearchScreen = ({navigation}) => {
         onTermSubmit={() => {fetchData()}} />
       <SafeAreaView>
         <FlatList
-          keyExtractor={item => item}
+          keyExtractor={item => item['1. symbol']}
           data={stock['bestMatches']}
           renderItem={({ item }) => {
             return (
@@ -47,4 +46,4 @@ const SearchScreen = ({navigation}) => {
   )
 }
 
-export default SearchScreen;
+export default SearchScreen
