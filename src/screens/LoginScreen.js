@@ -90,8 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 20
   },
-
-
 })
 
 export default LoginScreen
