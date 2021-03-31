@@ -25,7 +25,7 @@ const RegisterScreen = ({ navigation }) => {
       }
       const useRef = await firebase.firestore().collection("users")
       await useRef.doc(userId).set(data)
-      navigation.navigate("Home", { user: data })
+      // navigation.navigate("Home", { user: data })
     } catch (e) {
       alert(e)
     }

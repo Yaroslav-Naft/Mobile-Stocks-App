@@ -3,13 +3,13 @@ import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
-import { AuthContext } from "../context/AuthProvider"
+// import { AuthContext } from "../context/AuthProvider"
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { user, setUser } = useContext(AuthContext)
+  // const { user, setUser } = useContext(AuthContext)
 
   const loginUser = async (email, password) => {
     try {
@@ -19,12 +19,13 @@ const LoginScreen = ({ navigation }) => {
       const userId = res.user.uid
       const userRef = firebase.firestore().collection("users")
       const document = await userRef.doc(userId).get()
-      if (!document.exists) {
-        alert("User doesn't exist")
-        return
-      }
+      // if (!document.exists) {
+      //   alert("User doesn't exist")
+      //   return
+      // }
       const currentUser = document.data()
-      setUser(currentUser)
+      console.log(currentUser)
+      // setUser(currentUser)
     } catch (e) {
       alert(e)
     }
