@@ -36,13 +36,14 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(email) => setEmail(email)}
         value={email}
         placeholder="email"
+        autoCompleteType="email"
       />
       <TextInput
         style={styles.input}
         onChangeText={(password) => setPassword(password)}
         value={password}
         placeholder="password"
-        keyboardType="numeric"
+        secureTextEntry={true}
       />
       <Button title="Login" onPress={() => loginUser(email, password)} />
 
