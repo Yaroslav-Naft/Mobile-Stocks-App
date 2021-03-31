@@ -10,6 +10,7 @@
 
 ## Prototype - M1
 ![](https://i.imgur.com/Kbx1e27.png)
+![](https://i.imgur.com/dvN1jn4.png)
 
 ### Color palette
 ![](https://i.imgur.com/OnTgHjg.png)
