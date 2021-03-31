@@ -13,7 +13,7 @@ import WatchScreenNavigator from "./WatchScreenNavigator"
 import UserScreenNavigator from "./UserScreenNavigator"
 
 const BottomTab = createBottomTabNavigator()
-export default function BottomTabNavigator() {
+export default function BottomTabNavigator({ user }) {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
