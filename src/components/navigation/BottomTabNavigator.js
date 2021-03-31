@@ -1,13 +1,18 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo, Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-import HomeScreenNavigator from './HomeScreenNavigator';
-import SearchScreenNavigator from './SearchScreenNavigator';
-import TradingScreenNavigator from './TradingScreenNavigator';
-import WatchScreenNavigator from './WatchScreenNavigator'
-import UserScreenNavigator from './UserScreenNavigator'
+import React from "react"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import {
+  Entypo,
+  Ionicons,
+  MaterialCommunityIcons,
+  FontAwesome,
+} from "@expo/vector-icons"
+import HomeScreenNavigator from "./HomeScreenNavigator"
+import SearchScreenNavigator from "./SearchScreenNavigator"
+import TradingScreenNavigator from "./TradingScreenNavigator"
+import WatchScreenNavigator from "./WatchScreenNavigator"
+import UserScreenNavigator from "./UserScreenNavigator"
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator()
 export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator>
@@ -15,14 +20,16 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeScreenNavigator}
         options={{
-          tabBarIcon: () => <Entypo name="home" size={30} color="black" />
+          tabBarIcon: () => <Entypo name="home" size={30} color="black" />,
         }}
       />
       <BottomTab.Screen
         name="Trading"
         component={TradingScreenNavigator}
         options={{
-          tabBarIcon: () => <Ionicons name="bar-chart-outline" size={30} color="black" />
+          tabBarIcon: () => (
+            <Ionicons name="bar-chart-outline" size={30} color="black" />
+          ),
         }}
       />
 
@@ -30,7 +37,13 @@ export default function BottomTabNavigator() {
         name="Watch"
         component={WatchScreenNavigator}
         options={{
-          tabBarIcon: () => <MaterialCommunityIcons name="currency-usd-circle-outline" size={30} color="black" />
+          tabBarIcon: () => (
+            <MaterialCommunityIcons
+              name="currency-usd-circle-outline"
+              size={30}
+              color="black"
+            />
+          ),
         }}
       />
 
@@ -38,7 +51,9 @@ export default function BottomTabNavigator() {
         name="Search"
         component={SearchScreenNavigator}
         options={{
-          tabBarIcon: () => <Ionicons name="search-sharp" size={30} color="black" />
+          tabBarIcon: () => (
+            <Ionicons name="search-sharp" size={30} color="black" />
+          ),
         }}
       />
 
@@ -46,10 +61,11 @@ export default function BottomTabNavigator() {
         name="User"
         component={UserScreenNavigator}
         options={{
-          tabBarIcon: () => <FontAwesome name="user-circle-o" size={30} color="black" />
+          tabBarIcon: () => (
+            <FontAwesome name="user-circle-o" size={30} color="black" />
+          ),
         }}
       />
-
     </BottomTab.Navigator>
-  );
+  )
 }

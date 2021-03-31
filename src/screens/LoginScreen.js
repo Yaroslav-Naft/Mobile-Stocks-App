@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
-// import { AuthContext } from "../context/AuthProvider"
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
