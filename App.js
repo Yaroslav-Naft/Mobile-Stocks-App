@@ -44,10 +44,10 @@ export default function App() {
             <Stack.Screen name="Home" component={BottomTabNavigator} />
           </Stack.Navigator>
         ) : (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Root" component={LoginScreenNavigator} />
-          </Stack.Navigator>
-        )}
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Root" component={LoginScreenNavigator} />
+            </Stack.Navigator>
+          )}
       </NavigationContainer>
     </SafeAreaProvider>
   )
