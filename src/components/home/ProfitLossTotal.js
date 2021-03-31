@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
-    marginHorizontal: 10
+    margin: 10
   },
   block: {
     flex: 1,

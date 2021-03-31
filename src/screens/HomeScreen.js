@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, ScrollView, Text, SafeAreaView, FlatList } from 'react-native'
+import ValueOverview from '../components/home/ValueOverview'
 import ProfitLossTotal from '../components/home/ProfitLossTotal'
 import BoughtStockListItem from '../components/home/BoughtStockListItem'
 
@@ -11,8 +12,9 @@ const HomeScreen = () => {
   ]
 
   return(
-    <View style={styles.container}>
-      <ProfitLossTotal item={placeholder}/>
+    <ScrollView style={styles.container}>
+      <ValueOverview item={placeholder} />
+      <ProfitLossTotal item={placeholder} />
       <Text style={styles.title}>My Position</Text>
       <SafeAreaView>
         <FlatList
@@ -25,7 +27,7 @@ const HomeScreen = () => {
           }}
         />
       </SafeAreaView>
-    </View>
+    </ScrollView>
   )
 }
 
