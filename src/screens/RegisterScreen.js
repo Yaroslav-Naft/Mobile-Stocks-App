@@ -1,7 +1,8 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, Button } from "react-native"
+import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
+import '../../assets/Logo.png'
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
@@ -32,7 +33,11 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require("../../assets/Logo.png")}
+      />
       <TextInput
         style={styles.input}
         onChangeText={(email) => setEmail(email)}
@@ -65,10 +70,30 @@ const RegisterScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "auto",
+    backgroundColor: "white",
+
+  },
+
+  logo: {
+    height: 150,
+    width: 270,
+    marginBottom: 100
+  },
+
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+    height: 60,
+    width: 400,
+    backgroundColor: "#D9D9D9",
+    margin: 20,
+    borderRadius: 10,
+    fontSize: 20,
+    padding: 20
   },
 })
 
