@@ -2,7 +2,7 @@ import { useGestureHandlerRef } from "@react-navigation/stack"
 import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
-import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback } from 'react-native';
+import { Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
 
