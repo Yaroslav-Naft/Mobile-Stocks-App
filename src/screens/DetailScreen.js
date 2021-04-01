@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 
@@ -27,7 +27,6 @@ const DetailScreen = ({ route }) => {
             {console.log(stock)}
             <Text>{stock['01. symbol']}</Text>
             <Text>{Number(stock['05. price']).toFixed(2)}</Text>
-
             <View>
               <TouchableOpacity style={styles.buyBtn}>
                 <Text style={styles.buy}> BUY </Text>
@@ -49,13 +48,6 @@ const DetailScreen = ({ route }) => {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "auto",
-    backgroundColor: "white",
-  },
   buyBtn: {
     backgroundColor: "#457B9D",
     width: 200,
