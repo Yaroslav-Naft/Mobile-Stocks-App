@@ -5,7 +5,7 @@ import { signOut } from "../../firebase/config"
 import { Button } from "react-native"
 
 const TradingScreenStack = createStackNavigator()
-function TradingScreenNavigator() {
+function TradingScreenNavigator({ user }) {
   return (
     <TradingScreenStack.Navigator>
       <TradingScreenStack.Screen
