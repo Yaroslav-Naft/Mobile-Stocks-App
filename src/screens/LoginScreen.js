@@ -2,12 +2,22 @@ import { useGestureHandlerRef } from "@react-navigation/stack"
 import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
+import { View, TextInput, StyleSheet, Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+
+  const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback 
+    onPress={() => Keyboard.dismiss()}> {children}
+    </TouchableWithoutFeedback>
+    );
+
+
 
   const loginUser = async (email, password) => {
     try {
@@ -28,6 +38,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
+    <DismissKeyboard>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
@@ -55,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
         <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
+    </DismissKeyboard>
   )
 }
 
