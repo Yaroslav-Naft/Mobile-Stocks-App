@@ -6,16 +6,22 @@ import { Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
 
+
+
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback 
+  onPress={() => Keyboard.dismiss()}> {children}
+  </TouchableWithoutFeedback>
+  );
+
+
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
 
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback 
-    onPress={() => Keyboard.dismiss()}> {children}
-    </TouchableWithoutFeedback>
-    );
+
 
 
 
