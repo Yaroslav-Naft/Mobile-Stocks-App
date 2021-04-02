@@ -5,20 +5,14 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
+import { HideKeyboard } from "../components/misc/HideKeyboard";
 
 
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback 
-  onPress={() => Keyboard.dismiss()}> {children}
-  </TouchableWithoutFeedback>
-  );
 
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
-  
 
 
   const loginUser = async (email, password) => {
@@ -40,6 +34,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
+   <HideKeyboard>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
@@ -67,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
         <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
-
+   </HideKeyboard>
   )
 }
 
