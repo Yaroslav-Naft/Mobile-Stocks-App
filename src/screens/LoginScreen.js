@@ -7,9 +7,6 @@ import "../../assets/Logo.png"
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 
 
-
-
-
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -62,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
         <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
-    </KeyboardHide>
+  </KeyboardHide>
   )
 }
 
