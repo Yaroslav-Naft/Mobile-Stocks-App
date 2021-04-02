@@ -43,13 +43,15 @@ export default function App() {
       <NavigationContainer>
         {user ? (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Home" component={BottomTabNavigator} />
+            <Stack.Screen name="Home">
+              {(props) => <BottomTabNavigator {...props} user={user} />}
+            </Stack.Screen>
           </Stack.Navigator>
         ) : (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Root" component={LoginScreenNavigator} />
-            </Stack.Navigator>
-          )}
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Root" component={LoginScreenNavigator} />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     </SafeAreaProvider>
   )
