@@ -7,8 +7,6 @@ import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
 
 
-
-
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback 
   onPress={() => Keyboard.dismiss()}> {children}
@@ -20,9 +18,7 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-
-
-
+  
 
 
   const loginUser = async (email, password) => {
@@ -44,7 +40,6 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <DismissKeyboard>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
@@ -72,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
         <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
-    </DismissKeyboard>
+
   )
 }
 
