@@ -2,10 +2,10 @@ import { useGestureHandlerRef } from "@react-navigation/stack"
 import React, { useState, useContext } from "react"
 import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
-import { Keyboard,  TouchableWithoutFeedback } from 'react-native';
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
-import { KeyboardHide } from "../components/misc/KeyboardHide";
+import { KeyboardHide } from "../components/misc/KeyboardHide"
+
 
 
 
@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-   <KeyboardHide>
+ <KeyboardHide>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
