@@ -8,28 +8,26 @@ const DetailScreen = ({ route }) => {
   const [stock, setStock] = useState()
   
   const registerUser = async (email, password) => {
-    if (password !== confirmPassword) {
-      alert("Passwords don't match")
-      return
-    }
     try {
-      const res = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-      const userId = res.user.uid
-      // store the user in Firestore
-      const data = {
-        id: userId,
-        email,
-      }
-      const useRef = await firebase.firestore().collection("users")
-      await useRef.doc(userId).set(data)
+      // const res = await firebase
+      //   .auth()
+      //   .createUserWithEmailAndPassword(email, password)
+      // const userId = res.user.uid
+      // // store the user in Firestore
+      // const data = {
+      //   id: userId,
+      //   email,
+      // }
+      // const useRef = await firebase.firestore().collection("users")
+      // await useRef.doc(userId).set(data)
 
       const portfolio = {
         userId: userId,
         stocks: [],
         cash: 50000,
       }
+      
+      
       const portfolioRef = firebase.firestore().collection("portfolio")
       await portfolioRef.doc(userId).set(portfolio)
 
@@ -37,6 +35,12 @@ const DetailScreen = ({ route }) => {
     } catch (e) {
       alert(e)
     }
+  }
+
+  const stock = {
+    userId: userId,
+    stocks: [],
+    cash: 50000,
   }
 
   const addStock = s => (
