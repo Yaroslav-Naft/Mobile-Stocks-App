@@ -19,6 +19,13 @@ const DetailScreen = ({ route }) => {
     fetchData()
   }, [])
 
+  const test = s => {
+    console.log("test")
+  }
+
+
+
+
   return (
     <View>
       {
@@ -28,7 +35,19 @@ const DetailScreen = ({ route }) => {
             <Text>{stock['01. symbol']}</Text>
             <Text>{Number(stock['05. price']).toFixed(2)}</Text>
             <View>
-              <TouchableOpacity style={styles.buyBtn}>
+              <TouchableOpacity style={styles.buyBtn} onPress={() => {
+                test
+              }}>
+
+
+
+
+
+
+
+
+
+
                 <Text style={styles.buy}> BUY </Text>
               </TouchableOpacity>
 
