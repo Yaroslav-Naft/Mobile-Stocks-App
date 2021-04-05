@@ -27,6 +27,11 @@ const DetailScreen = ({ route }) => {
         cash: 50000,
       }
       
+      const stock = {
+        userId: userId,
+        stocks: [],
+        cash: 50000,
+      }
       
       const portfolioRef = firebase.firestore().collection("portfolio")
       await portfolioRef.doc(userId).set(portfolio)
@@ -37,11 +42,7 @@ const DetailScreen = ({ route }) => {
     }
   }
 
-  const stock = {
-    userId: userId,
-    stocks: [],
-    cash: 50000,
-  }
+
 
   const addStock = s => (
     console.log('Stock added')
