@@ -23,11 +23,18 @@ const RegisterScreen = ({ navigation }) => {
       const data = {
         id: userId,
         email,
-        portfolio: [],
-        cash: 50000,
       }
       const useRef = await firebase.firestore().collection("users")
       await useRef.doc(userId).set(data)
+
+      const portfolio = {
+        userId: userId,
+        stocks: [],
+        cash: 50000,
+      }
+      const portfolioRef = firebase.firestore().collection("portfolio")
+      await portfolioRef.doc(userId).set(portfolio)
+
       // navigation.navigate("Home", { user: data })
     } catch (e) {
       alert(e)
