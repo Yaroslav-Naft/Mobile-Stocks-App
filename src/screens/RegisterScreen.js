@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
+import { KeyboardHide } from "../components/misc/KeyboardHide"
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
@@ -35,6 +36,7 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   return (
+  <KeyboardHide>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
       <TextInput
@@ -67,6 +69,7 @@ const RegisterScreen = ({ navigation }) => {
         <Text>Already have an account?</Text>
       </TouchableOpacity>
     </View>
+  </KeyboardHide> 
   )
 }
 
