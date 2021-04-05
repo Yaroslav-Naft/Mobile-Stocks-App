@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 const DetailScreen = ({ route }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
+  
 
   async function fetchData() {
     const res = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params['1. symbol']}&apikey=WAD33GWL180QLM8L`);
@@ -17,13 +18,11 @@ const DetailScreen = ({ route }) => {
 
   useEffect(() => {
     fetchData()
-    console.log("test111")
   }, [])
 
-  const test = s => {
-    console.log("test")
-  }
-
+const addStock = s => (
+  console.log('Stock added')
+)
 
 
 
@@ -36,19 +35,7 @@ const DetailScreen = ({ route }) => {
             <Text>{stock['01. symbol']}</Text>
             <Text>{Number(stock['05. price']).toFixed(2)}</Text>
             <View>
-              <TouchableOpacity style={styles.buyBtn} onClick={() => {
-                test
-              }}>
-
-
-
-
-
-
-
-
-
-
+              <TouchableOpacity style={styles.buyBtn} onPress={addStock}>
                 <Text style={styles.buy}> BUY </Text>
               </TouchableOpacity>
 
