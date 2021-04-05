@@ -7,6 +7,43 @@ const DetailScreen = ({ route }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   
+  const registerUser = async (email, password) => {
+    if (password !== confirmPassword) {
+      alert("Passwords don't match")
+      return
+    }
+    try {
+      const res = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+      const userId = res.user.uid
+      // store the user in Firestore
+      const data = {
+        id: userId,
+        email,
+      }
+      const useRef = await firebase.firestore().collection("users")
+      await useRef.doc(userId).set(data)
+
+      const portfolio = {
+        userId: userId,
+        stocks: [],
+        cash: 50000,
+      }
+      const portfolioRef = firebase.firestore().collection("portfolio")
+      await portfolioRef.doc(userId).set(portfolio)
+
+      // navigation.navigate("Home", { user: data })
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  const addStock = s => (
+    console.log('Stock added')
+  )
+
+  
 
   async function fetchData() {
     const res = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params['1. symbol']}&apikey=WAD33GWL180QLM8L`);
@@ -20,11 +57,6 @@ const DetailScreen = ({ route }) => {
     fetchData()
   }, [])
 
-const addStock = s => (
-  console.log('Stock added')
-)
-
-
 
   return (
     <View>
@@ -35,7 +67,7 @@ const addStock = s => (
             <Text>{stock['01. symbol']}</Text>
             <Text>{Number(stock['05. price']).toFixed(2)}</Text>
             <View>
-              <TouchableOpacity style={styles.buyBtn} onPress={addStock}>
+              <TouchableOpacity style={styles.buyBtn} onPress={() => addStock(email, password)}>
                 <Text style={styles.buy}> BUY </Text>
               </TouchableOpacity>
 
