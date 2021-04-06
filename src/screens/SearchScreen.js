@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar'
 import SearchListItem from '../components/SearchListItem'
 
 const SearchScreen = ({navigation}) => {
-  const [term, setTerm] = useState('IBM')
+  const [term, setTerm] = useState('')
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
 
