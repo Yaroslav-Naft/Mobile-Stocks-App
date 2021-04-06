@@ -1,6 +1,5 @@
-import { useGestureHandlerRef } from "@react-navigation/stack"
-import React, { useState, useContext } from "react"
-import { View, Text, StyleSheet, Button, Image } from "react-native"
+import React, { useState } from "react"
+import { KeyboardAvoidingView, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
@@ -10,7 +9,6 @@ import { KeyboardHide } from "../components/misc/KeyboardHide"
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
 
   const loginUser = async (email, password) => {
     try {
@@ -31,35 +29,38 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
- <KeyboardHide>
-    <View style={styles.container}>
-      <Image style={styles.logo} source={require("../../assets/Logo.png")} />
+      <KeyboardHide>
+        <KeyboardAvoidingView 
+          behavior={"padding"}
+          style={styles.container}
+        >
+          <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
-      <TextInput
-        style={styles.input}
-        onChangeText={(email) => setEmail(email)}
-        value={email}
-        placeholder="email"
-        autoCompleteType="email"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={(password) => setPassword(password)}
-        value={password}
-        placeholder="password"
-        secureTextEntry={true}
-      />
-      <Button title="Login" onPress={() => loginUser(email, password)} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(email) => setEmail(email)}
+            value={email}
+            placeholder="email"
+            autoCompleteType="email"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(password) => setPassword(password)}
+            value={password}
+            placeholder="password"
+            secureTextEntry={true}
+          />
+          <Button title="Login" onPress={() => loginUser(email, password)} />
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Register")
-        }}
-      >
-        <Text>Create an Account</Text>
-      </TouchableOpacity>
-    </View>
-  </KeyboardHide>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Register")
+            }}
+          >
+            <Text>Create an Account</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </KeyboardHide>
   )
 }
 
