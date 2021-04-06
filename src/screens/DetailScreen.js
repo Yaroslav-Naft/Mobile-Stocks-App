@@ -21,20 +21,21 @@ const DetailScreen = ({ route }) => {
     fetchData()
   }, [])
 
-  // get the user portfolio and get the stock that the user wants to sell
-  // if stock doesn't exist don't event display stock button
-  // if the stock exists, find the stock in stocks array with the current id
-  //
-
   const buy = async () => {
     // create new stock object
     const userId = "aDffMO8d3NMkr8MPkQr24SCIAnt2"
-    stockId = userId + stock["01. symbol"]
-    sharesBought = 100
+    const stockId = userId + stock["01. symbol"]
+    const sharesBought = 100
 
     try {
       const stockRef = firebase.firestore().collection("stocks")
       const doc = await stockRef.doc(stockId).get()
+
+      const portfolioRef = firebase.firestore().collection("portfolio")
+      const portfolioDoc = await portfolioRef.doc(userId).get()
+      const portfolioData = portfolioDoc.data()
+      const userCash = portfolioData.cash
+      const updatedUserCash = userCash - sharesBought * stock["05. price"]
 
       if (doc.exists) {
         // get the numShares and the avgPrice
@@ -51,6 +52,10 @@ const DetailScreen = ({ route }) => {
           numShares: updatedNumShares,
           avgPrice: updatedAvgPrice,
         })
+
+        await portfolioRef.doc(userId).update({
+          cash: updatedUserCash,
+        })
         return
       }
 
@@ -62,9 +67,9 @@ const DetailScreen = ({ route }) => {
         avgPrice: (sharesBought * stock["05. price"]) / sharesBought,
       }
 
-      const portfolioRef = firebase.firestore().collection("portfolio")
       await portfolioRef.doc(userId).update({
         stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
+        cash: updatedUserCash,
       })
 
       await stockRef.doc(stockId).set(boughtStock)
@@ -73,14 +78,54 @@ const DetailScreen = ({ route }) => {
     }
   }
 
-  // const sell = () => {
-  //   // find the stock
-  //   const stockRef = firebase.firestore().collection("stock")
-  //   await stockRef.doc(userId).update({
+  const sell = async () => {
+    const userId = "aDffMO8d3NMkr8MPkQr24SCIAnt2"
+    const stockId = userId + stock["01. symbol"]
+    const stockRef = firebase.firestore().collection("stocks")
 
-  //   })
+    const shareSold = 50
 
-  // }
+    const portfolioRef = firebase.firestore().collection("portfolio")
+    const portfolioDoc = await portfolioRef.doc(userId).get()
+    const portfolioData = portfolioDoc.data()
+    const userCash = portfolioData.cash
+    const updatedUserCash = userCash + shareSold * stock["05. price"]
+
+    try {
+      const doc = await stockRef.doc(stockId).get()
+      const docData = doc.data()
+      const prevNumShares = docData.numShares
+      const updatedNumShares = prevNumShares - shareSold
+
+      if (updatedNumShares < 0) {
+        // delete the entry from stocks collection and from portfolio
+        try {
+          await stockRef.doc(stockId).delete()
+          await portfolioRef.doc(userId).update({
+            stocks: firebase.firestore.FieldValue.arrayRemove(stockId),
+          })
+        } catch (e) {
+          alert(e)
+        }
+        return
+      }
+
+      const prevAvgPrice = docData.avgPrice
+      const updatedAvgPrice =
+        (prevNumShares * prevAvgPrice - stock["05. price"]) / updatedNumShares
+
+      await stockRef.doc(stockId).update({
+        numShares: updatedNumShares,
+        avgPrice: updatedAvgPrice,
+      })
+
+      await portfolioRef.doc(userId).update({
+        cash: updatedUserCash,
+      })
+    } catch (e) {
+      alert(e)
+    }
+  }
 
   return (
     <View>
@@ -94,7 +139,7 @@ const DetailScreen = ({ route }) => {
               <Text style={styles.buy}> BUY </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.sellBtn}>
+            <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
               <Text style={styles.sell}> SELL </Text>
             </TouchableOpacity>
           </View>
