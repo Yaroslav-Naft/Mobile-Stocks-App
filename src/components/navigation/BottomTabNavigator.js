@@ -57,7 +57,7 @@ export default function BottomTabNavigator({ user }) {
           ),
         }}
       >
-      {(props) => <SearchScreenNavigator {...props} user={user} />} 
+        {(props) => <SearchScreenNavigator {...props} user={user} />} 
       </BottomTab.Screen>
 
       <BottomTab.Screen

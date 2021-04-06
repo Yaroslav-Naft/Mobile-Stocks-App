@@ -26,7 +26,6 @@ function HomeScreenNavigator({ user }) {
       />
       <HomeScreenStack.Screen
         name="Detail"
-        component={DetailScreen}
         options={{
           headerRight: () => (
             <Button
@@ -38,7 +37,9 @@ function HomeScreenNavigator({ user }) {
             />
           ),
         }}
-      />
+      >
+        {(props) => <DetailScreen {...props} user={user} />}
+      </HomeScreenStack.Screen>
     </HomeScreenStack.Navigator>
   )
 }
