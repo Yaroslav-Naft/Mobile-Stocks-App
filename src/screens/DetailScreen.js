@@ -24,9 +24,12 @@ const DetailScreen = ({ route }) => {
       {
         stock ?
           <View>
-            {console.log(stock)}
+            {/* {console.log(stock)} */}
             <Text>{stock['01. symbol']}</Text>
-            <Text>{Number(stock['05. price']).toFixed(2)}</Text>
+            <Text>Price:  {Number(stock['05. price']).toFixed(2)}</Text>
+            <Text>Open: {Number(stock['02. open']).toFixed(2)}</Text>
+            <Text>High: {Number(stock['03. high']).toFixed(2)}</Text>
+            <Text>Low:  {Number(stock['04. low']).toFixed(2)}</Text>
             <View>
               <TouchableOpacity style={styles.buyBtn}>
                 <Text style={styles.buy}> BUY </Text>
