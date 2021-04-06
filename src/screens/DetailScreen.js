@@ -17,8 +17,6 @@ const DetailScreen = ({ route, user }) => {
     try {
      const stockRef = firebase.firestore().collection("stocks")
      const doc = await stockRef.doc(stockId).get()
-
-
       const stock = {
         id: stockId,
         userId: user.id,
@@ -32,13 +30,7 @@ const DetailScreen = ({ route, user }) => {
       await portfolioRef.doc(user.id).update({
         stocks: firebase.firestore.FieldValue.arrayUnion(stockId)
       })
-
-
-
       await stockRef.doc(stockId).set(stock)
-
-
-
       // navigation.navigate("Home", { user: data })
     } catch (e) {
       alert(e)
@@ -62,40 +54,35 @@ const DetailScreen = ({ route, user }) => {
 
 
   return (
-    <View style={styles.container}>
-      {
-        stock ?
-          <View>
-            <View style={styles.round}>
-              {/* {console.log(stock)} */}
-              <Text style={styles.symbol}>{stock['01. symbol']}</Text>
-              <Text style={styles.info}>Price:  {Number(stock['05. price']).toFixed(2)}</Text>
-              <Text style={styles.info}>Open: {Number(stock['02. open']).toFixed(2)}</Text>
-              <Text style={styles.info}>High: {Number(stock['03. high']).toFixed(2)}</Text>
-              <Text style={styles.info}>Low:  {Number(stock['04. low']).toFixed(2)}</Text>
+      <View style={styles.container}>
+        {
+          stock ?
+            <View>
+              <View style={styles.round}>
+                {/* {console.log(stock)} */}
+                <Text style={styles.symbol}>{stock['01. symbol']}</Text>
+                <Text style={styles.info}>Price:  {Number(stock['05. price']).toFixed(2)}</Text>
+                <Text style={styles.info}>Open: {Number(stock['02. open']).toFixed(2)}</Text>
+                <Text style={styles.info}>High: {Number(stock['03. high']).toFixed(2)}</Text>
+                <Text style={styles.info}>Low:  {Number(stock['04. low']).toFixed(2)}</Text>
+              </View>
+              <View style={styles.btns}>
+                <TouchableOpacity style={styles.buyBtn} onPress={() => addStock()}>
+                  <Text style={styles.buy}> BUY </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.sellBtn}>
+                  <Text style={styles.sell}> SELL </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.btns}>
-              <TouchableOpacity style={styles.buyBtn}>
-                <Text style={styles.buy}> BUY </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sellBtn} onPress={() => addStock()}>
-                <Text style={styles.sell}> SELL </Text>
-              </TouchableOpacity>
+            :
+            <View>
+              <Text>Loading...</Text>
             </View>
-          </View>
-          :
-          <View>
-            <Text>Loading...</Text>
-          </View>
-      }
-    </View>
+        }
+      </View>
   )
 }
-z
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
