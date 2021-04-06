@@ -51,13 +51,14 @@ export default function BottomTabNavigator({ user }) {
 
       <BottomTab.Screen
         name="Search"
-        component={SearchScreenNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name="search-sharp" size={30} color="black" />
           ),
         }}
-      />
+      >
+      {(props) => <SearchScreenNavigator {...props} user={user} />} 
+      </BottomTab.Screen>
 
       <BottomTab.Screen
         name="User"

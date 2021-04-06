@@ -7,7 +7,7 @@ import DetailScreen from "../../screens/DetailScreen"
 import { signOut } from "../../firebase/config"
 
 const SearchScreenStack = createStackNavigator()
-function SearchScreenNavigator() {
+function SearchScreenNavigator({ user }) {
   return (
     <SearchScreenStack.Navigator>
       <SearchScreenStack.Screen
@@ -30,7 +30,6 @@ function SearchScreenNavigator() {
       />
       <SearchScreenStack.Screen
         name="Detail"
-        component={DetailScreen}
         options={{
           headerRight: () => (
             <Button
@@ -42,7 +41,9 @@ function SearchScreenNavigator() {
             />
           ),
         }}
-      />
+      >
+      {(props) => <DetailScreen {...props} user={user} />}
+      </SearchScreenStack.Screen>
     </SearchScreenStack.Navigator>
   )
 }

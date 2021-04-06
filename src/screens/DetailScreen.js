@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { firebase } from "../firebase/config"
 
 
-const DetailScreen = ({ route }) => {
+const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   
@@ -22,21 +22,23 @@ const DetailScreen = ({ route }) => {
       // const useRef = await firebase.firestore().collection("users")
       // await useRef.doc(userId).set(data)
 
-      const portfolio = {
-        userId: "test",
-        stocks: ["", ""],
-        cash: 50000,
-      }
+      // const portfolio = {
+      //   userId: "test",
+      //   stocks: ["", ""],
+      //   cash: 50000,
+      // }
       
       const stock = {
-        userId: "userId",
+        userId: user.id,
         symbol: "VFV",
         quotePrice: "test",
         numShares: "2"
       }
       
+      console.log({user})
+
       const portfolioRef = firebase.firestore().collection("stocks")
-      await portfolioRef.doc("3454234").set(stock)
+      await portfolioRef.doc(user.id).set(stock)
 
       // navigation.navigate("Home", { user: data })
     } catch (e) {
