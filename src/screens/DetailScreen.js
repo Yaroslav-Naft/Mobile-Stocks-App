@@ -12,14 +12,20 @@ const DetailScreen = ({ route, user }) => {
   
   const addStock = async () => {
     try {
+
+    const stockId = user.id + symbol
+
       const stock = {
+        id: stockId,
         userId: user.id,
         symbol: symbol,
         quotePrice: quotePrice,
         numShares: "20"
       }
+
+
       //Adding to user Current Stocks
-      console.log(quotePrice)
+      console.log({stock})
 
       //Adding to Stocks Transaction field
       const portfolioRef = firebase.firestore().collection("stocks")
