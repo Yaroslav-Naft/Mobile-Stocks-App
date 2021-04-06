@@ -9,10 +9,11 @@ const DetailScreen = ({ route, user }) => {
   const [stock, setStock] = useState()
   const [symbol, setSymbol] = useState("")
   const [quotePrice, setQuotePrice] = useState("")
+  const [numShares, setNumShares] = useState()
 
   const addStock = async () => {
     const stockId = user.id + symbol
-    const numShares = "20"
+  
 
     try {
      const stockRef = firebase.firestore().collection("stocks")
@@ -53,6 +54,7 @@ const DetailScreen = ({ route, user }) => {
   }, [])
 
 
+
   return (
       <View style={styles.container}>
         {
@@ -68,13 +70,11 @@ const DetailScreen = ({ route, user }) => {
               </View>
               <View style={styles.btns}>
               <TextInput
-              // style={styles.input}
-              // onChangeText={onChangeNumber}
+              style={styles.input}
+              onChangeText={setNumShares}
               placeholder="Please select share numbers"
               keyboardType="numeric"
               />
-
-
                 <TouchableOpacity style={styles.buyBtn} onPress={() => addStock()}>
                   <Text style={styles.buy}> BUY </Text>
                 </TouchableOpacity>
