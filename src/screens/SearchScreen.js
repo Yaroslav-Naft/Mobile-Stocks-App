@@ -34,7 +34,7 @@ const SearchScreen = ({navigation}) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity onPress={() => {
-                navigation.navigate('Detail', item)
+                navigation.navigate('Detail', item['1. symbol'])
               }}>
                 <SearchListItem item={item} />
               </TouchableOpacity>
