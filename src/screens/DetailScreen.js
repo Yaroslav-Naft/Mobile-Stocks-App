@@ -8,7 +8,7 @@ const DetailScreen = ({ route }) => {
   const [stock, setStock] = useState()
 
   async function fetchData() {
-    const res = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params['1. symbol']}&apikey=WAD33GWL180QLM8L`);
+    const res = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`);
     res
       .json()
       .then(res => setStock(res['Global Quote']))
