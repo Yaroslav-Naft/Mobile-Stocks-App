@@ -10,19 +10,21 @@ const DetailScreen = ({ route, user }) => {
   const [symbol, setSymbol] = useState("")
   const [quotePrice, setQuotePrice] = useState("")
 
-  
-  const stockId = user.id + symbol
-  const doc = await stockRef.doc(stockId).get()
-
-
   const addStock = async () => {
+    const stockId = user.id + symbol
+    const numShares = "20"
+
     try {
+     const stockRef = firebase.firestore().collection("stocks")
+     const doc = await stockRef.doc(stockId).get()
+
+
       const stock = {
         id: stockId,
         userId: user.id,
         symbol: symbol,
         quotePrice: quotePrice,
-        numShares: "20"
+        numShares: numShares
       }
 
       //New Stock
@@ -32,7 +34,7 @@ const DetailScreen = ({ route, user }) => {
       })
 
 
-      const stockRef = firebase.firestore().collection("stocks")
+
       await stockRef.doc(stockId).set(stock)
 
 
