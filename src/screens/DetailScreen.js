@@ -128,12 +128,25 @@ const DetailScreen = ({ route }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       {stock ? (
         <View>
-          {/* {console.log(stock)} */}
-          <Text>{stock["01. symbol"]}</Text>
-          <Text>{Number(stock["05. price"]).toFixed(2)}</Text>
+          <View style={styles.round}>
+            {/* {console.log(stock)} */}
+            <Text style={styles.symbol}>{stock["01. symbol"]}</Text>
+            <Text style={styles.info}>
+              Price: {Number(stock["05. price"]).toFixed(2)}
+            </Text>
+            <Text style={styles.info}>
+              Open: {Number(stock["02. open"]).toFixed(2)}
+            </Text>
+            <Text style={styles.info}>
+              High: {Number(stock["03. high"]).toFixed(2)}
+            </Text>
+            <Text style={styles.info}>
+              Low: {Number(stock["04. low"]).toFixed(2)}
+            </Text>
+          </View>
           <View>
             <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
               <Text style={styles.buy}> BUY </Text>
@@ -154,6 +167,38 @@ const DetailScreen = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: "auto",
+  },
+  round: {
+    height: 300,
+    width: 300,
+    backgroundColor: "#457B9D",
+    borderRadius: 300,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  symbol: {
+    fontSize: 30,
+    fontWeight: "800",
+    padding: 10,
+    color: "white",
+  },
+  info: {
+    fontSize: 20,
+    padding: 3,
+    color: "white",
+  },
+
+  btns: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
   buyBtn: {
     backgroundColor: "#457B9D",
     width: 200,
@@ -161,7 +206,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    marginBottom: 50,
+    margin: 30,
   },
   buy: {
     color: "white",

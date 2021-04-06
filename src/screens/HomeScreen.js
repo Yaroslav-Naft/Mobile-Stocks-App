@@ -1,14 +1,15 @@
 import React from 'react'
 import { StyleSheet, ScrollView, Text, SafeAreaView, FlatList } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import ValueOverview from '../components/home/ValueOverview'
 import ProfitLossTotal from '../components/home/ProfitLossTotal'
 import BoughtStockListItem from '../components/home/BoughtStockListItem'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const placeholder = [ 
-    { stockName: "detail1", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
-    { stockName: "detail2", company: "example", boughtAmount: 200, marketPrice: 200, boughtPrice: 150 },
-    { stockName: "detail3", company: "example2", boughtAmount: 100, marketPrice: 100, boughtPrice: 150 }
+    { stockName: "IBM", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
+    { stockName: "IBMJ", company: "example", boughtAmount: 200, marketPrice: 200, boughtPrice: 150 },
+    { stockName: "IBMM", company: "example2", boughtAmount: 100, marketPrice: 100, boughtPrice: 150 }
   ]
 
   return(
@@ -22,7 +23,11 @@ const HomeScreen = () => {
           data={placeholder}
           renderItem={({ item }) => {
             return (
-              <BoughtStockListItem item={item} />
+              <TouchableOpacity onPress={() => {
+                navigation.navigate('Detail', item.stockName)
+              }}>
+                <BoughtStockListItem item={item} />
+              </TouchableOpacity>
             )
           }}
         />

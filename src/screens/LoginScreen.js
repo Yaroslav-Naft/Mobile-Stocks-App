@@ -4,10 +4,13 @@ import { View, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
+import { KeyboardHide } from "../components/misc/KeyboardHide"
+
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
 
   const loginUser = async (email, password) => {
     try {
@@ -28,6 +31,7 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
+ <KeyboardHide>
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
 
@@ -55,6 +59,7 @@ const LoginScreen = ({ navigation }) => {
         <Text>Create an Account</Text>
       </TouchableOpacity>
     </View>
+  </KeyboardHide>
   )
 }
 
