@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, ScrollView, Text, SafeAreaView, FlatList } from 'react-native'
+import { StyleSheet, Text, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ValueOverview from '../components/home/ValueOverview'
 import ProfitLossTotal from '../components/home/ProfitLossTotal'
@@ -16,9 +16,9 @@ const HomeScreen = ({navigation}) => {
     <FlatList
       ListHeaderComponent={
         <>
-        <ValueOverview item={placeholder} />
-        <ProfitLossTotal item={placeholder} />
-        <Text style={styles.title}>My Position</Text>
+          <ValueOverview item={placeholder} />
+          <ProfitLossTotal item={placeholder} />
+          <Text style={styles.title}>My Position</Text>
         </>
       }
       keyExtractor={item => item.stockName}
