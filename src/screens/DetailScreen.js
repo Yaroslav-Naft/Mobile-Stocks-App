@@ -10,10 +10,10 @@ const DetailScreen = ({ route }) => {
   
   const addStock = async () => {
     try {
-      // const res = await firebase
+      const res = await firebase
       //   .auth()
       //   .createUserWithEmailAndPassword(email, password)
-      // const userId = res.user.uid
+      const userId = res.user.uid
       // // store the user in Firestore
       // const data = {
       //   id: userId,
