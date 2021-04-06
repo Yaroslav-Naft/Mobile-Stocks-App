@@ -148,7 +148,7 @@ const DetailScreen = ({ route, user }) => {
               Low: {Number(stock["04. low"]).toFixed(2)}
             </Text>
           </View>
-          <View>
+          <View style={styles.btns}>
             <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
               <Text style={styles.buy}> BUY </Text>
             </TouchableOpacity>
@@ -159,10 +159,10 @@ const DetailScreen = ({ route, user }) => {
           </View>
         </View>
       ) : (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )}
+          <View>
+            <Text>Loading...</Text>
+          </View>
+        )}
     </View>
   )
 }
