@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 
