@@ -35,8 +35,8 @@ const DetailScreen = ({ route }) => {
         numShares: "2"
       }
       
-      const portfolioRef = firebase.firestore().collection("portfolio")
-      await portfolioRef.doc(userId).set(portfolio)
+      const portfolioRef = firebase.firestore().collection("stocks")
+      await portfolioRef.doc(userId).set(stock)
 
       // navigation.navigate("Home", { user: data })
     } catch (e) {
