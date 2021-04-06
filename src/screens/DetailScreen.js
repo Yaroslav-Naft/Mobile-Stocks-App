@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { firebase } from "../firebase/config"
 
 
 const DetailScreen = ({ route }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   
-  const registerUser = async (email, password) => {
+  const addStock = async () => {
     try {
       // const res = await firebase
       //   .auth()
@@ -22,15 +23,16 @@ const DetailScreen = ({ route }) => {
       // await useRef.doc(userId).set(data)
 
       const portfolio = {
-        userId: userId,
-        stocks: [],
+        userId: "test",
+        stocks: ["", ""],
         cash: 50000,
       }
       
       const stock = {
-        userId: userId,
-        stocks: [],
-        cash: 50000,
+        userId: "userId",
+        symbol: "VFV",
+        quotePrice: "test",
+        numShares: "2"
       }
       
       const portfolioRef = firebase.firestore().collection("portfolio")
@@ -44,9 +46,9 @@ const DetailScreen = ({ route }) => {
 
 
 
-  const addStock = s => (
-    console.log('Stock added')
-  )
+  // const addStock = s => (
+  //   console.log('Stock added')
+  // )
 
   
 
@@ -72,7 +74,7 @@ const DetailScreen = ({ route }) => {
             <Text>{stock['01. symbol']}</Text>
             <Text>{Number(stock['05. price']).toFixed(2)}</Text>
             <View>
-              <TouchableOpacity style={styles.buyBtn} onPress={() => addStock(email, password)}>
+              <TouchableOpacity style={styles.buyBtn} onPress={() => addStock()}>
                 <Text style={styles.buy}> BUY </Text>
               </TouchableOpacity>
 
