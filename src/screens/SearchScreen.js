@@ -29,7 +29,7 @@ const SearchScreen = ({navigation}) => {
           term={term} 
           onTermChange={(newTerm) => setTerm(newTerm)}
           onTermSubmit={() => {fetchData()}} />
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <FlatList
             keyExtractor={item => item['1. symbol']}
             data={stock}
