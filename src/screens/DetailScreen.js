@@ -117,6 +117,7 @@ const DetailScreen = ({ route, user }) => {
           await stockRef.doc(stockId).delete()
           await portfolioRef.doc(userId).update({
             stocks: firebase.firestore.FieldValue.arrayRemove(stockId),
+            cash: updatedUserCash,
           })
         } catch (e) {
           alert(e)
