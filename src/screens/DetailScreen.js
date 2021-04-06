@@ -12,25 +12,6 @@ const DetailScreen = ({ route, user }) => {
   
   const addStock = async () => {
     try {
-      // const res = await firebase
-      //   .auth()
-      //   .createUserWithEmailAndPassword(email, password)
-      // const userId = res.user.uid
-      // // store the user in Firestore
-      // const data = {
-      //   id: userId,
-      //   email,
-      // }
-      // const useRef = await firebase.firestore().collection("users")
-      // await useRef.doc(userId).set(data)
-
-      // const portfolio = {
-      //   userId: "test",
-      //   stocks: ["", ""],
-      //   cash: 50000,
-      // }
-      
-
       const stock = {
         userId: user.id,
         symbol: symbol,
