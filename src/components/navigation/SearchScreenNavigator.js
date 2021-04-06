@@ -42,7 +42,7 @@ function SearchScreenNavigator({ user }) {
           ),
         }}
       >
-      {(props) => <DetailScreen {...props} user={user} />}
+        {(props) => <DetailScreen {...props} user={user} />}
       </SearchScreenStack.Screen>
     </SearchScreenStack.Navigator>
   )
