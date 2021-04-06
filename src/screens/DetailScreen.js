@@ -6,6 +6,7 @@ import { firebase } from "../firebase/config"
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
+  const [sharesBought, setSharesBought] = useState(0)
 
   async function fetchData() {
     const res = await fetch(
@@ -24,7 +25,6 @@ const DetailScreen = ({ route, user }) => {
   const buy = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
-    const sharesBought = 100
 
     try {
       const stockRef = firebase.firestore().collection("stocks")
@@ -143,6 +143,7 @@ const DetailScreen = ({ route, user }) => {
   }
 
   return (
+    
     <View style={styles.container}>
       {stock ? (
         <View>
@@ -165,6 +166,7 @@ const DetailScreen = ({ route, user }) => {
           <View>
               <TextInput
               style={styles.input}
+              onChangeText={setSharesBought}
               placeholder="Please select the number of shares"
               keyboardType="numeric"
               />
