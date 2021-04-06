@@ -13,34 +13,30 @@ const HomeScreen = ({navigation}) => {
   ]
 
   return(
-    <ScrollView style={styles.container}>
-      <ValueOverview item={placeholder} />
-      <ProfitLossTotal item={placeholder} />
-      <Text style={styles.title}>My Position</Text>
-      <SafeAreaView>
-        <FlatList
-          keyExtractor={item => item.stockName}
-          data={placeholder}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity onPress={() => {
-                navigation.navigate('Detail', item.stockName)
-              }}>
-                <BoughtStockListItem item={item} />
-              </TouchableOpacity>
-            )
-          }}
-        />
-      </SafeAreaView>
-    </ScrollView>
+    <FlatList
+      ListHeaderComponent={
+        <>
+        <ValueOverview item={placeholder} />
+        <ProfitLossTotal item={placeholder} />
+        <Text style={styles.title}>My Position</Text>
+        </>
+      }
+      keyExtractor={item => item.stockName}
+      data={placeholder}
+      renderItem={({ item }) => {
+        return (
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Detail', item.stockName)
+          }}>
+            <BoughtStockListItem item={item} />
+          </TouchableOpacity>
+        )
+      }}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column'
-  },
   title: {
     alignSelf: 'center',
     fontSize: 20,
