@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { KeyboardAvoidingView, Text, StyleSheet, Button, Image } from "react-native"
+import { StyleSheet, KeyboardAvoidingView, Text, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
