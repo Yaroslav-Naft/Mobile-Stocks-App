@@ -7,6 +7,8 @@ import { firebase } from "../firebase/config"
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
+  const [symbol, setSymbol] = useState("")
+  const [quotePrice, setQuotePrice] = useState("")
   
   const addStock = async () => {
     try {
@@ -28,15 +30,15 @@ const DetailScreen = ({ route, user }) => {
       //   cash: 50000,
       // }
       
+
       const stock = {
         userId: user.id,
-        symbol: "",
-        quotePrice: "79.0",
+        symbol: symbol,
+        quotePrice: quotePrice,
         numShares: "20"
       }
-      console
       //Adding to user Current Stocks
-
+      console.log(quotePrice)
 
       //Adding to Stocks Transaction field
       const portfolioRef = firebase.firestore().collection("stocks")
@@ -54,6 +56,8 @@ const DetailScreen = ({ route, user }) => {
     res
       .json()
       .then(res => setStock(res['Global Quote']))
+      .then( res => setSymbol(stock['01. symbol']))
+      .then( res => setQuotePrice(Number(stock['05. price']).toFixed(2)))
       .catch(err => setErrors(err));
   }
 
