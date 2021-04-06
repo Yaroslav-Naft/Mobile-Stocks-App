@@ -6,7 +6,6 @@ import { firebase } from "../firebase/config"
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
-  console.log(stock)
 
   async function fetchData() {
     const res = await fetch(
@@ -98,7 +97,7 @@ const DetailScreen = ({ route, user }) => {
       const prevNumShares = docData.numShares
       const updatedNumShares = prevNumShares - shareSold
 
-      if (updatedNumShares < 0) {
+      if (updatedNumShares <= 0) {
         // delete the entry from stocks collection and from portfolio
         try {
           await stockRef.doc(stockId).delete()
@@ -113,7 +112,8 @@ const DetailScreen = ({ route, user }) => {
 
       const prevAvgPrice = docData.avgPrice
       const updatedAvgPrice =
-        (prevNumShares * prevAvgPrice - stock["05. price"]) / updatedNumShares
+        (prevNumShares * prevAvgPrice - shareSold * stock["05. price"]) /
+        updatedNumShares
 
       await stockRef.doc(stockId).update({
         numShares: updatedNumShares,
