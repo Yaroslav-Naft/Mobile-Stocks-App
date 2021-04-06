@@ -3,13 +3,41 @@ import { View, Text, StyleSheet } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 
-const DetailScreen = ({ route }) => {
+const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
+  console.log(stock)
+
+  // const addStock = async () => {
+  //   const stockId = user.id + symbol
+  //   const numShares = "20"
+
+  //   try {
+  //    const stockRef = firebase.firestore().collection("stocks")
+  //    const doc = await stockRef.doc(stockId).get()
+  //     const stock = {
+  //       id: stockId,
+  //       userId: user.id,
+  //       symbol: symbol,
+  //       quotePrice: quotePrice,
+  //       numShares: numShares
+  //     }
+
+  //     //New Stock
+  //     const portfolioRef = firebase.firestore().collection("portfolio")
+  //     await portfolioRef.doc(user.id).update({
+  //       stocks: firebase.firestore.FieldValue.arrayUnion(stockId)
+  //     })
+  //     await stockRef.doc(stockId).set(stock)
+  //     // navigation.navigate("Home", { user: data })
+  //   } catch (e) {
+  //     alert(e)
+  //   }
+  // }
 
   async function fetchData() {
     const res = await fetch(
-      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params["1. symbol"]}&apikey=WAD33GWL180QLM8L`
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params["01. symbol"]}&apikey=WAD33GWL180QLM8L`
     )
     res
       .json()
@@ -23,7 +51,7 @@ const DetailScreen = ({ route }) => {
 
   const buy = async () => {
     // create new stock object
-    const userId = "aDffMO8d3NMkr8MPkQr24SCIAnt2"
+    const userId = user.id
     const stockId = userId + stock["01. symbol"]
     const sharesBought = 100
 
