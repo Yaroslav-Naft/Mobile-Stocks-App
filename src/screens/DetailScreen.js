@@ -30,13 +30,15 @@ const DetailScreen = ({ route, user }) => {
       
       const stock = {
         userId: user.id,
-        symbol: "VFV",
-        quotePrice: "test",
-        numShares: "2"
+        symbol: "",
+        quotePrice: "79.0",
+        numShares: "20"
       }
-      
-      console.log({user})
+      console
+      //Adding to user Current Stocks
 
+
+      //Adding to Stocks Transaction field
       const portfolioRef = firebase.firestore().collection("stocks")
       await portfolioRef.doc(user.id).set(stock)
 
@@ -46,13 +48,6 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
-
-
-  // const addStock = s => (
-  //   console.log('Stock added')
-  // )
-
-  
 
   async function fetchData() {
     const res = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params['1. symbol']}&apikey=WAD33GWL180QLM8L`);
