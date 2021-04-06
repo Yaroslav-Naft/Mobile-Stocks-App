@@ -22,7 +22,6 @@ const DetailScreen = ({ route, user }) => {
   }, [])
 
   const buy = async () => {
-    // create new stock object
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
     const sharesBought = 100
@@ -35,10 +34,14 @@ const DetailScreen = ({ route, user }) => {
       const portfolioDoc = await portfolioRef.doc(userId).get()
       const portfolioData = portfolioDoc.data()
       const userCash = portfolioData.cash
+
+      if (sharesBought * stock["05. price"] > userCash) {
+        alert("Sorry, can't perform the transaction. Insufficient funds")
+        return
+      }
       const updatedUserCash = userCash - sharesBought * stock["05. price"]
 
       if (doc.exists) {
-        // get the numShares and the avgPrice
         const docData = doc.data()
         const prevNumShares = docData.numShares
         const updatedNumShares = prevNumShares + sharesBought
@@ -85,20 +88,31 @@ const DetailScreen = ({ route, user }) => {
 
     const shareSold = 50
 
-    const portfolioRef = firebase.firestore().collection("portfolio")
-    const portfolioDoc = await portfolioRef.doc(userId).get()
-    const portfolioData = portfolioDoc.data()
-    const userCash = portfolioData.cash
-    const updatedUserCash = userCash + shareSold * stock["05. price"]
-
     try {
       const doc = await stockRef.doc(stockId).get()
+      if (!doc.exists) {
+        alert(`You don't have any ${stock["01. symbol"]} stocks yet`)
+        return
+      }
       const docData = doc.data()
       const prevNumShares = docData.numShares
+
+      if (prevNumShares < shareSold) {
+        alert(
+          `Can't perform transaction. You only have ${prevNumShares} shares.`
+        )
+        return
+      }
+
       const updatedNumShares = prevNumShares - shareSold
 
+      const portfolioRef = firebase.firestore().collection("portfolio")
+      const portfolioDoc = await portfolioRef.doc(userId).get()
+      const portfolioData = portfolioDoc.data()
+      const userCash = portfolioData.cash
+      const updatedUserCash = userCash + shareSold * stock["05. price"]
+
       if (updatedNumShares <= 0) {
-        // delete the entry from stocks collection and from portfolio
         try {
           await stockRef.doc(stockId).delete()
           await portfolioRef.doc(userId).update({
@@ -159,10 +173,10 @@ const DetailScreen = ({ route, user }) => {
           </View>
         </View>
       ) : (
-          <View>
-            <Text>Loading...</Text>
-          </View>
-        )}
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      )}
     </View>
   )
 }
