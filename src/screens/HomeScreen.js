@@ -1,18 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, Text, SafeAreaView, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import ValueOverview from '../components/home/ValueOverview'
 import ProfitLossTotal from '../components/home/ProfitLossTotal'
 import BoughtStockListItem from '../components/home/BoughtStockListItem'
+import { firebase } from '../firebase/config';
 
-const HomeScreen = ({navigation}) => {
-  const placeholder = [ 
+const HomeScreen = ({ navigation }) => {
+  const [user, setUser] = useState();
+
+  function fetchUser() {
+    const uId = firebase.auth().currentUser.uid
+    const userDoc = firebase.firestore().collection('users').doc(uId)
+    userDoc.onSnapshot((doc) => {
+      setUser(doc.data());
+    })
+  }
+  useEffect(() => {
+    fetchUser();
+  }, [])
+
+
+  const placeholder = [
     { stockName: "IBM", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
     { stockName: "IBMJ", company: "example", boughtAmount: 200, marketPrice: 200, boughtPrice: 150 },
     { stockName: "IBMM", company: "example2", boughtAmount: 100, marketPrice: 100, boughtPrice: 150 }
   ]
 
-  return(
+  return (
     <ScrollView style={styles.container}>
       <ValueOverview item={placeholder} />
       <ProfitLossTotal item={placeholder} />
