@@ -36,7 +36,7 @@ const DetailScreen = ({ route, user }) => {
       const userCash = portfolioData.cash
 
       if (sharesBought * stock["05. price"] > userCash) {
-        alert("Insufficient funds.")
+        alert("Sorry, can't perform the transaction. Insufficient funds")
         return
       }
       const updatedUserCash = userCash - sharesBought * stock["05. price"]
@@ -90,6 +90,10 @@ const DetailScreen = ({ route, user }) => {
 
     try {
       const doc = await stockRef.doc(stockId).get()
+      if (!doc.exists) {
+        alert(`You don't have any ${stock["01. symbol"]} stocks yet`)
+        return
+      }
       const docData = doc.data()
       const prevNumShares = docData.numShares
 
