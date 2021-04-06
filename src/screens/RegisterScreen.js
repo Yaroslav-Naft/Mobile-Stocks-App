@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, Button, Image } from "react-native"
+import { KeyboardAvoidingView, Text, StyleSheet, Button, Image } from "react-native"
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler"
 import { firebase } from "../firebase/config"
 import "../../assets/Logo.png"
@@ -44,7 +44,10 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
   <KeyboardHide>
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      behavior={"padding"}
+      style={styles.container}
+    >
       <Image style={styles.logo} source={require("../../assets/Logo.png")} />
       <TextInput
         style={styles.input}
@@ -75,7 +78,7 @@ const RegisterScreen = ({ navigation }) => {
       >
         <Text>Already have an account?</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   </KeyboardHide> 
   )
 }
