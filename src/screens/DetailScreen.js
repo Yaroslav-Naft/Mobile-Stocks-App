@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { firebase } from "../firebase/config"
 
@@ -67,12 +67,28 @@ const DetailScreen = ({ route, user }) => {
                 <Text style={styles.info}>Low:  {Number(stock['04. low']).toFixed(2)}</Text>
               </View>
               <View style={styles.btns}>
+              <TextInput
+              // style={styles.input}
+              // onChangeText={onChangeNumber}
+              placeholder="Please select share numbers"
+              keyboardType="numeric"
+              />
+
+
                 <TouchableOpacity style={styles.buyBtn} onPress={() => addStock()}>
                   <Text style={styles.buy}> BUY </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
+                {/* <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="useless placeholder"
+        keyboardType="numeric"
+      /> */}
+
               </View>
             </View>
             :
@@ -146,7 +162,16 @@ const styles = StyleSheet.create({
     color: "#457B9D",
     fontSize: 25,
     fontWeight: "800"
-  }
+  },
+  input: {
+    height: 60,
+    width: 400,
+    backgroundColor: "#D9D9D9",
+    margin: 40,
+    borderRadius: 10,
+    fontSize: 20,
+    padding: 20,
+  },
 })
 
 
