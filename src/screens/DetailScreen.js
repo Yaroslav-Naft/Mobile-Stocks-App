@@ -9,12 +9,14 @@ const DetailScreen = ({ route, user }) => {
   const [stock, setStock] = useState()
   const [symbol, setSymbol] = useState("")
   const [quotePrice, setQuotePrice] = useState("")
+
   
+  const stockId = user.id + symbol
+  const doc = await stockRef.doc(stockId).get()
+
+
   const addStock = async () => {
     try {
-
-    const stockId = user.id + symbol
-
       const stock = {
         id: stockId,
         userId: user.id,
@@ -23,13 +25,17 @@ const DetailScreen = ({ route, user }) => {
         numShares: "20"
       }
 
+      //New Stock
+      const portfolioRef = firebase.firestore().collection("portfolio")
+      await portfolioRef.doc(user.id).update({
+        stocks: firebase.firestore.FieldValue.arrayUnion(stockId)
+      })
 
-      //Adding to user Current Stocks
-      console.log({stock})
 
-      //Adding to Stocks Transaction field
-      const portfolioRef = firebase.firestore().collection("stocks")
-      await portfolioRef.doc(user.id).set(stock)
+      const stockRef = firebase.firestore().collection("stocks")
+      await stockRef.doc(stockId).set(stock)
+
+
 
       // navigation.navigate("Home", { user: data })
     } catch (e) {
