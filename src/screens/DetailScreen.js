@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { firebase } from "../firebase/config"
 
 
+
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
@@ -68,26 +69,22 @@ const DetailScreen = ({ route, user }) => {
                 <Text style={styles.info}>High: {Number(stock['03. high']).toFixed(2)}</Text>
                 <Text style={styles.info}>Low:  {Number(stock['04. low']).toFixed(2)}</Text>
               </View>
-              <View style={styles.btns}>
+              <View>
               <TextInput
               style={styles.input}
               onChangeText={setNumShares}
-              placeholder="Please select share numbers"
+              placeholder="Please select the number of shares"
               keyboardType="numeric"
               />
+              </View>
+              <View style={styles.btns}>
+
                 <TouchableOpacity style={styles.buyBtn} onPress={() => addStock()}>
                   <Text style={styles.buy}> BUY </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                {/* <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      /> */}
 
               </View>
             </View>
@@ -133,6 +130,14 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
+  input: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
+    marginLeft: 30,
+    fontSize: 16,
+  },
+
   buyBtn: {
     backgroundColor: "#457B9D",
     width: 200,
@@ -163,18 +168,18 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "800"
   },
-  input: {
-    height: 60,
-    width: 400,
-    backgroundColor: "#D9D9D9",
-    margin: 40,
-    borderRadius: 10,
-    fontSize: 20,
-    padding: 20,
-  },
+  // input: {
+  //   height: 60,
+  //   width: 400,
+  //   backgroundColor: "#D9D9D9",
+  //   margin: 40,
+  //   borderRadius: 10,
+  //   fontSize: 16,
+  //   padding: 20,
+  // },
 })
 
-
+//center
 
 
 export default DetailScreen;
