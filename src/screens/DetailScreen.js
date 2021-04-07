@@ -70,7 +70,7 @@ const DetailScreen = ({ route, user }) => {
         numShares: shares,
         avgPrice: (shares * stock["05. price"]) / shares,
       }
-      console.log(shares)
+
 
       await portfolioRef.doc(userId).update({
         stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
@@ -173,12 +173,12 @@ const DetailScreen = ({ route, user }) => {
               <View>
                 <TextInput
                   style={styles.input}
-                  value={shares}
-                  onChangeNumber={(e) => setShares(e.target.value).parseInt()}
+                  onChangeNumber={setShares}
                   placeholder="Please select the number of shares"
                   keyboardType={"numeric"}
                   maxLength={4}
                 />
+                {console.log(shares)}
               </View>
               <View style={styles.btns}>
                 <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
