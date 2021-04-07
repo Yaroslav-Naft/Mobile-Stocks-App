@@ -7,28 +7,28 @@ import BoughtStockListItem from '../components/home/BoughtStockListItem'
 import { firebase } from '../firebase/config';
 
 const HomeScreen = ({ navigation }) => {
-  // const [user, setUser] = useState();
+  const [user, setUser] = useState();
   const [stockArr, setStockArr] = useState([])
 
-  const uId = firebase.auth().currentUser.uid
-  const stockDB = firebase.firestore().collection("stocks")
-  stockDB.where("userId", "==", uId)
-    .get()
-    .then((querySnapshot) => {
-      const myStocks = []
-      querySnapshot.forEach((doc) => {
-        myStocks.push(doc.data())
-
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
+  useEffect(() => {
+    const uId = firebase.auth().currentUser.uid
+    firebase.firestore().collection("stocks")
+      .where("userId", "==", uId)
+      .get()
+      .then((querySnapshot) => {
+        const myStocks = []
+        querySnapshot.forEach((doc) => {
+          myStocks.push(doc.data())
+        });
+        setStockArr(myStocks)
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
       });
-      setStockArr(myStocks)
-    })
-    .catch((error) => {
-      console.log("Error getting documents: ", error);
-    });
+  }, [user])
 
-  // console.log(stockArr)
+  console.log("give me the dataaaa")
+  console.log(stockArr)
 
 
   // async function fetchUser() {
