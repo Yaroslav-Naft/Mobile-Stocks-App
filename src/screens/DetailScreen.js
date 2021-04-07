@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView } from "react-native"
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 import { firebase } from "../firebase/config"
-
 
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
@@ -24,11 +29,8 @@ const DetailScreen = ({ route, user }) => {
   }, [])
 
   const buy = async () => {
-
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
-
-    console.log(shares)
 
     try {
       const stockRef = firebase.firestore().collection("stocks")
@@ -145,18 +147,9 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(shares)
-  }, [shares])
-
-  console.log("whatis")
-  console.log(shares)
   return (
     <KeyboardHide>
-      <KeyboardAvoidingView
-        behavior={"padding"}
-        style={styles.container}
-      >
+      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
         <View style={styles.container}>
           {stock ? (
             <View>
@@ -197,10 +190,10 @@ const DetailScreen = ({ route, user }) => {
               </View>
             </View>
           ) : (
-              <View>
-                <Text>Loading...</Text>
-              </View>
-            )}
+            <View>
+              <Text>Loading...</Text>
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     </KeyboardHide>
