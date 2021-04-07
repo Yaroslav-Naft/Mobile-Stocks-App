@@ -8,12 +8,6 @@ const BoughtStockListItem = (props) => {
         <Text style={styles.headText}>{props.item.symbol}</Text>
         <Text style={styles.numText}>@{props.item.numShares}</Text>
       </View>
-      {/* <View style={styles.block}>
-        <Text style={styles.subText}>Market Value</Text>
-        <Text style={styles.numText}>{props.item.marketPrice * props.item.numShares}</Text>
-        <Text style={styles.subText}>P/L</Text>
-        <Text style={styles.numText}>{(props.item.marketPrice - props.item.boughtPrice) * props.item.boughtAmount}</Text>
-      </View> */}
       <View style={styles.block}>
         <Text style={styles.subText}>Avg Price</Text>
         <Text style={styles.numText}>{props.item.avgPrice.toFixed(2)}</Text>
@@ -42,7 +36,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   headText: {
-    fontSize: 20
+    fontSize: 20,
+    paddingBottom: 10
   },
   subText: {
     color: '#457B9D',
@@ -50,7 +45,6 @@ const styles = StyleSheet.create({
   },
   numText: {
     fontSize: 15,
-    marginTop: 3
   }
 })
 
