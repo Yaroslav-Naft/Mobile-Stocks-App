@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, View, Text, TextInput } from "react-native"
+import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { KeyboardHide } from "../components/misc/KeyboardHide"
 import { firebase } from "../firebase/config"
+
 
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
-  const [sharesBought, setSharesBought] = useState(0)
+  const [shares, setShares] = useState(0)
 
   async function fetchData() {
     const res = await fetch(
@@ -35,20 +37,20 @@ const DetailScreen = ({ route, user }) => {
       const portfolioData = portfolioDoc.data()
       const userCash = portfolioData.cash
 
-      if (sharesBought * stock["05. price"] > userCash) {
+      if (shares * stock["05. price"] > userCash) {
         alert("Sorry, can't perform the transaction. Insufficient funds")
         return
       }
-      const updatedUserCash = userCash - sharesBought * stock["05. price"]
+      const updatedUserCash = userCash - shares * stock["05. price"]
 
       if (doc.exists) {
         const docData = doc.data()
         const prevNumShares = docData.numShares
-        const updatedNumShares = prevNumShares + sharesBought
+        const updatedNumShares = prevNumShares + shares
 
         const prevAvgPrice = docData.avgPrice
         const updatedAvgPrice =
-          (prevNumShares * prevAvgPrice + sharesBought * stock["05. price"]) /
+          (prevNumShares * prevAvgPrice + shares * stock["05. price"]) /
           updatedNumShares
 
         await stockRef.doc(stockId).update({
@@ -66,8 +68,8 @@ const DetailScreen = ({ route, user }) => {
         id: stockId,
         userId: userId,
         symbol: stock["01. symbol"],
-        numShares: sharesBought,
-        avgPrice: (sharesBought * stock["05. price"]) / sharesBought,
+        numShares: shares,
+        avgPrice: (shares * stock["05. price"]) / shares,
       }
 
       await portfolioRef.doc(userId).update({
@@ -86,7 +88,7 @@ const DetailScreen = ({ route, user }) => {
     const stockId = userId + stock["01. symbol"]
     const stockRef = firebase.firestore().collection("stocks")
 
-    const shareSold = 50
+    const shareSold = shares
 
     try {
       const doc = await stockRef.doc(stockId).get()
@@ -143,7 +145,11 @@ const DetailScreen = ({ route, user }) => {
   }
 
   return (
-    
+    <KeyboardHide>
+    <KeyboardAvoidingView 
+      behavior={"padding"}
+      style={styles.container}
+    >
     <View style={styles.container}>
       {stock ? (
         <View>
@@ -166,16 +172,16 @@ const DetailScreen = ({ route, user }) => {
           <View>
               <TextInput
               style={styles.input}
-              onChangeText={setSharesBought}
+              onChangeText={setShares}
               placeholder="Please select the number of shares"
               keyboardType="numeric"
+              maxLength = {4}
               />
               </View>
           <View style={styles.btns}>
             <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
               <Text style={styles.buy}> BUY </Text>
             </TouchableOpacity>
-
             <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
               <Text style={styles.sell}> SELL </Text>
             </TouchableOpacity>
@@ -187,6 +193,8 @@ const DetailScreen = ({ route, user }) => {
         </View>
       )}
     </View>
+  </KeyboardAvoidingView>
+  </KeyboardHide>
   )
 }
 
