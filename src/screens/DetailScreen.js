@@ -24,8 +24,10 @@ const DetailScreen = ({ route, user }) => {
   }, [])
 
   const buy = async () => {
+
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
+    console.log(shares + 5)
 
     try {
       const stockRef = firebase.firestore().collection("stocks")
@@ -144,6 +146,17 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
+useEffect(() => {
+console.log(shares)
+}, [shares])
+
+const updateText = (text) => {
+  setShares(+text)
+  console.log(shares)
+}
+
+console.log(shares)
+
   return (
     <KeyboardHide>
     <KeyboardAvoidingView 
@@ -172,7 +185,8 @@ const DetailScreen = ({ route, user }) => {
           <View>
               <TextInput
               style={styles.input}
-              onChangeNumber={setShares}
+              value={shares}
+              onChangeText={(e) => updateText(e.target.value)}
               placeholder="Please select the number of shares"
               keyboardType="numeric"
               maxLength = {4}
