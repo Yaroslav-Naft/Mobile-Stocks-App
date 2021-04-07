@@ -70,6 +70,7 @@ const DetailScreen = ({ route, user }) => {
         numShares: shares,
         avgPrice: (shares * stock["05. price"]) / shares,
       }
+      console.log(shares)
 
       await portfolioRef.doc(userId).update({
         stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
@@ -146,55 +147,56 @@ const DetailScreen = ({ route, user }) => {
 
   return (
     <KeyboardHide>
-    <KeyboardAvoidingView 
-      behavior={"padding"}
-      style={styles.container}
-    >
-    <View style={styles.container}>
-      {stock ? (
-        <View>
-          <View style={styles.round}>
-            {/* {console.log(stock)} */}
-            <Text style={styles.symbol}>{stock["01. symbol"]}</Text>
-            <Text style={styles.info}>
-              Price: {Number(stock["05. price"]).toFixed(2)}
-            </Text>
-            <Text style={styles.info}>
-              Open: {Number(stock["02. open"]).toFixed(2)}
-            </Text>
-            <Text style={styles.info}>
-              High: {Number(stock["03. high"]).toFixed(2)}
-            </Text>
-            <Text style={styles.info}>
-              Low: {Number(stock["04. low"]).toFixed(2)}
-            </Text>
-          </View>
-          <View>
-              <TextInput
-              style={styles.input}
-              onChangeNumber={setShares}
-              placeholder="Please select the number of shares"
-              keyboardType="numeric"
-              maxLength = {4}
-              />
+      <KeyboardAvoidingView
+        behavior={"padding"}
+        style={styles.container}
+      >
+        <View style={styles.container}>
+          {stock ? (
+            <View>
+              <View style={styles.round}>
+                {/* {console.log(stock)} */}
+                <Text style={styles.symbol}>{stock["01. symbol"]}</Text>
+                <Text style={styles.info}>
+                  Price: {Number(stock["05. price"]).toFixed(2)}
+                </Text>
+                <Text style={styles.info}>
+                  Open: {Number(stock["02. open"]).toFixed(2)}
+                </Text>
+                <Text style={styles.info}>
+                  High: {Number(stock["03. high"]).toFixed(2)}
+                </Text>
+                <Text style={styles.info}>
+                  Low: {Number(stock["04. low"]).toFixed(2)}
+                </Text>
               </View>
-          <View style={styles.btns}>
-            <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
-              <Text style={styles.buy}> BUY </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
-              <Text style={styles.sell}> SELL </Text>
-            </TouchableOpacity>
-          </View>
+              <View>
+                <TextInput
+                  style={styles.input}
+                  value={shares}
+                  onChangeNumber={(e) => setShares(e.target.value).parseInt()}
+                  placeholder="Please select the number of shares"
+                  keyboardType={"numeric"}
+                  maxLength={4}
+                />
+              </View>
+              <View style={styles.btns}>
+                <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
+                  <Text style={styles.buy}> BUY </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
+                  <Text style={styles.sell}> SELL </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : (
+              <View>
+                <Text>Loading...</Text>
+              </View>
+            )}
         </View>
-      ) : (
-          <View>
-            <Text>Loading...</Text>
-          </View>
-        )}
-    </View>
-  </KeyboardAvoidingView>
-  </KeyboardHide>
+      </KeyboardAvoidingView>
+    </KeyboardHide>
   )
 }
 
