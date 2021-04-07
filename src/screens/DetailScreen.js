@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView } from "react-native"
+import { StyleSheet, View, ScrollView, Text, TextInput, KeyboardAvoidingView } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 import { firebase } from "../firebase/config"
@@ -183,7 +183,7 @@ const DetailScreen = ({ route, user }) => {
         behavior={"padding"}
         style={styles.container}
       >
-        <View style={styles.container}>
+        <ScrollView>
           {stock ? (
             <View>
               <View style={styles.round}>
@@ -228,7 +228,7 @@ const DetailScreen = ({ route, user }) => {
                 <Text>Loading...</Text>
               </View>
             )}
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </KeyboardHide>
   )
@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
     borderRadius: 300,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 30,
   },
   symbol: {
     fontSize: 30,
@@ -299,6 +300,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
     borderRadius: 30,
+    marginBottom: 30,
   },
   sell: {
     color: "#457B9D",
