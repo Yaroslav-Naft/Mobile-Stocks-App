@@ -27,8 +27,8 @@ const WatchScreen = ({ navigation }) => {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data())
-          set
+          // console.log(doc.id, " => ", doc.data())
+          setWatchlist([...watchlist, doc.data()])
         })
       })
       .catch((error) => {
@@ -43,13 +43,13 @@ const WatchScreen = ({ navigation }) => {
           <Text style={styles.title}>My Watched Stock</Text>
         </>
       }
-      keyExtractor={(item) => item.stockName}
-      data={placeholder}
+      keyExtractor={(item) => item.symbol}
+      data={watchlist}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Detail", item.stockName)
+              navigation.navigate("Detail", item.symbol)
             }}
           >
             <WatchListItem item={item} />
