@@ -158,15 +158,24 @@ const DetailScreen = ({ route, user }) => {
   const addToWatchlist = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
+    const stockRef = firebase.firestore().collection("watchLists")
+    const doc = await stockRef.doc(stockId).get()
+
+  //Toggle state when pressed
     setToggleBtn(!toggleBtn)
 
-    if(toggleBtn ==true){
+  //Condition for existing watchlist stock
+    // if (doc.exists) {
+    //   setToggleBtn(false)
+    //   return
+    // }
+
+    if(toggleBtn == true){
       
       console.log('stock added')
     try {
       const stockRef = firebase.firestore().collection("watchLists")
 
-      const doc = await stockRef.doc(stockId).get()
       const selectedStock = {
         id: stockId,
         price: stock["05. price"],
@@ -187,26 +196,6 @@ const DetailScreen = ({ route, user }) => {
     console.log('stock removed')
   }
     
-  }
-
-  const remFromWatchlist = async () => {
-    const userId = user.id
-    const stockId = userId + stock["01. symbol"]
-
-    try {
-      const stockRef = firebase.firestore().collection("watchLists")
-      
-      const doc = await stockRef.doc(stockId).get()
-      const selectedStock = {
-        id: stockId,
-        price: stock["05. price"],
-        userId: userId,
-        symbol: stock["01. symbol"]
-      }
-      await stockRef.doc(stockId).delete()
-    } catch (e) {
-      alert(e)
-    }
   }
 
   return (
