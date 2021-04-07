@@ -38,7 +38,6 @@ export default function BottomTabNavigator({ user }) {
 
       <BottomTab.Screen
         name="Watch"
-        component={WatchScreenNavigator}
         options={{
           tabBarIcon: () => (
             <MaterialCommunityIcons
@@ -48,7 +47,9 @@ export default function BottomTabNavigator({ user }) {
             />
           ),
         }}
-      />
+      >
+        {(props) => <WatchScreenNavigator {...props} user={user} />}
+      </BottomTab.Screen>
 
       <BottomTab.Screen
         name="Search"

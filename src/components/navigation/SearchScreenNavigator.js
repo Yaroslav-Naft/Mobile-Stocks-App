@@ -7,7 +7,7 @@ import DetailScreen from "../../screens/DetailScreen"
 import { signOut } from "../../firebase/config"
 
 const SearchScreenStack = createStackNavigator()
-function SearchScreenNavigator({ user }) {
+function SearchScreenNavigator({user}) {
   return (
     <SearchScreenStack.Navigator>
       <SearchScreenStack.Screen

@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, TextInput } from 'react-native';
-import { EvilIcons } from '@expo/vector-icons';
+import { StyleSheet, View, TextInput } from 'react-native'
+import { EvilIcons } from '@expo/vector-icons'
 
 const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
   return (
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SearchBar;
+export default SearchBar

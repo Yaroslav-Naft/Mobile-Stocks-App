@@ -7,7 +7,6 @@ import LoginScreenNavigator from "./src/components/navigation/LoginScreenNavigat
 import BottomTabNavigator from "./src/components/navigation/BottomTabNavigator"
 import { firebase } from "./src/firebase/config"
 
-import MainPageLoginNavigator from "./src/components/navigation/MainPageLoginNavigator"
 import { AuthContext, AuthProvider } from "./src/context/AuthProvider"
 
 const Stack = createStackNavigator()

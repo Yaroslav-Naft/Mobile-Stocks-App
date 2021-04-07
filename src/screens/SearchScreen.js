@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, SafeAreaView, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import SearchBar from '../components/SearchBar'
-import SearchListItem from '../components/SearchListItem'
+import SearchBar from '../components/search/SearchBar'
+import SearchListItem from '../components/search/SearchListItem'
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 
 const SearchScreen = ({navigation}) => {

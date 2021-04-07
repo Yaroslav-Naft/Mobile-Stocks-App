@@ -6,7 +6,7 @@ import DetailScreen from "../../screens/DetailScreen"
 import { signOut } from "../../firebase/config"
 
 const HomeScreenStack = createStackNavigator()
-function HomeScreenNavigator({ user }) {
+function HomeScreenNavigator({user}) {
   return (
     <HomeScreenStack.Navigator>
       <HomeScreenStack.Screen
