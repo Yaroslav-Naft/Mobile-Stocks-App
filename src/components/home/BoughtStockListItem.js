@@ -5,15 +5,15 @@ const BoughtStockListItem = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.block}>
-        <Text style={styles.headText}>{props.item.stockName}</Text>
+        <Text style={styles.headText}>{props.item.symbol}</Text>
         <Text style={styles.subText}>{props.item.company}</Text>
-        <Text style={styles.numText}>@{props.item.boughtAmount}</Text>
+        <Text style={styles.numText}>@{props.item.numShares}</Text>
       </View>
       <View style={styles.block}>
         <Text style={styles.subText}>Market Value</Text>
-        <Text style={styles.numText}>{props.item.marketPrice*props.item.boughtAmount}</Text>
+        <Text style={styles.numText}>{props.item.marketPrice * props.item.numShares}</Text>
         <Text style={styles.subText}>P/L</Text>
-        <Text style={styles.numText}>{(props.item.marketPrice-props.item.boughtPrice)*props.item.boughtAmount}</Text>
+        <Text style={styles.numText}>{(props.item.marketPrice - props.item.boughtPrice) * props.item.boughtAmount}</Text>
       </View>
       <View style={styles.block}>
         <Text style={styles.subText}>Market Price</Text>
@@ -53,5 +53,5 @@ const styles = StyleSheet.create({
     fontSize: 8
   }
 })
-  
+
 export default BoughtStockListItem
