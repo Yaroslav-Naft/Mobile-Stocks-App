@@ -8,7 +8,7 @@ import { firebase } from "../firebase/config"
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
-  const [shares, setShares] = useState(0)
+  const [shares, setShares] = React.useState(null)
 
   async function fetchData() {
     const res = await fetch(
@@ -172,8 +172,8 @@ const DetailScreen = ({ route, user }) => {
           <View>
               <TextInput
               style={styles.input}
-              onChangeText={setShares}
-              placeholder="Please select the number of shares"
+              onChangeNumber={setShares}
+              placeholder="Ple select the number of shares"
               keyboardType="numeric"
               maxLength = {4}
               />
