@@ -3,12 +3,14 @@ import { StyleSheet, Text, FlatList } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import WatchListItem from '../components/watch/WatchListItem'
 
-const WatchScreen = ({navigation}) => {
+const WatchScreen = ({navigation, user}) => {
   const placeholder = [ 
     { stockName: "IBM", company: "example", marketPrice: 200 },
     { stockName: "IBMJ", company: "example", marketPrice: 200, },
     { stockName: "IBMM", company: "example2", marketPrice: 100, }
   ]
+  console.log('the user is')
+  console.log(user)
 
   return(
     <FlatList

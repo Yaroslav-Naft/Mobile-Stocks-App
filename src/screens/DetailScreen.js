@@ -9,6 +9,8 @@ const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   const [shares, setShares] = useState(0)
+
+  
   async function fetchData() {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`
@@ -27,7 +29,6 @@ const DetailScreen = ({ route, user }) => {
 
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
-
 
     try {
       const stockRef = firebase.firestore().collection("stocks")
@@ -144,6 +145,38 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
+  const toggleWatchlist = async () => {
+    const userId = user.id
+    const stockId = userId + stock["01. symbol"]
+    const stockRef = firebase.firestore().collection("watchLists")
+    const doc = await stockRef.doc(stockId).get()
+    if (!doc.exists) {
+      console.log('stock added')
+    try {
+      const stockRef = firebase.firestore().collection("watchLists")
+
+      const selectedStock = {
+        id: stockId,
+        price: stock["05. price"],
+        userId: userId,
+        symbol: stock["01. symbol"]
+      }
+      await stockRef.doc(stockId).set(selectedStock)
+    } catch (e) {
+      alert(e)
+    }
+  } else {
+    try {
+      const stockRef = firebase.firestore().collection("watchLists")
+      await stockRef.doc(stockId).delete()
+    } catch (e) {
+      alert(e)
+    }
+    console.log('stock removed')
+  }
+    
+  }
+
   return (
     <KeyboardHide>
       <KeyboardAvoidingView
@@ -177,7 +210,6 @@ const DetailScreen = ({ route, user }) => {
                   keyboardType="numeric"
                   maxLength={4}
                 />
-
               </View>
               <View style={styles.btns}>
                 <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
@@ -185,6 +217,9 @@ const DetailScreen = ({ route, user }) => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => toggleWatchlist()} style={styles.sellBtn}>
+                  <Text style={styles.sell}> WatchList </Text>
                 </TouchableOpacity>
               </View>
             </View>
