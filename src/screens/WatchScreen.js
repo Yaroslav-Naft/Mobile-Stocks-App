@@ -6,7 +6,6 @@ import { firebase } from "../firebase/config"
 
 const WatchScreen = ({ navigation }) => {
   const [watchlist, setWatchlist] = useState([])
-  const [stockPrice, setStockPrice] = useState([])
 
   useEffect(() => {
     getAllUserWatchlist()
