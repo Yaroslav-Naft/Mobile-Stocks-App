@@ -8,20 +8,24 @@ import { firebase } from '../firebase/config';
 
 const HomeScreen = ({ navigation }) => {
   const [user, setUser] = useState();
+  const [stockArr, setStockArr] = useState([])
 
-  function fetchUser() {
-    const uId = firebase.auth().currentUser.uid
-    const userDoc = firebase.firestore().collection('users').doc(uId)
-    userDoc.onSnapshot((doc) => {
-      setUser(doc.data());
-    })
-  }
   useEffect(() => {
-    fetchUser();
-  }, [])
-
-  { console.log(user) }
-
+    const uId = firebase.auth().currentUser.uid
+    firebase.firestore().collection("stocks")
+      .where("userId", "==", uId)
+      .get()
+      .then((querySnapshot) => {
+        const myStocks = []
+        querySnapshot.forEach((doc) => {
+          myStocks.push(doc.data())
+        });
+        setStockArr(myStocks)
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  }, [user])
 
   const placeholder = [
     { stockName: "IBM", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
@@ -38,12 +42,12 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.title}>My Position</Text>
         </>
       }
-      keyExtractor={item => item.stockName}
-      data={placeholder}
+      keyExtractor={item => item.id}
+      data={stockArr}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity onPress={() => {
-            navigation.navigate('Detail', item.stockName)
+            navigation.navigate('Detail', item.symbol)
           }}>
             <BoughtStockListItem item={item} />
           </TouchableOpacity>
