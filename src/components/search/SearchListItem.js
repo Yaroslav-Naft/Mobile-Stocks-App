@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 
 const SearchListItem = (props) => {
   return (
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   }
 });
   
-export default SearchListItem;
+export default SearchListItem
