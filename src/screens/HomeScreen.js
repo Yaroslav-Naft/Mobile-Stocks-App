@@ -27,9 +27,6 @@ const HomeScreen = ({ navigation }) => {
       });
   }, [user])
 
-  console.log("give me the dataaaa")
-  console.log(stockArr)
-
   const placeholder = [
     { stockName: "IBM", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
     { stockName: "IBMJ", company: "example", boughtAmount: 200, marketPrice: 200, boughtPrice: 150 },
