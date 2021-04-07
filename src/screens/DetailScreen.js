@@ -154,8 +154,8 @@ const DetailScreen = ({ route, user }) => {
     console.log(`watchlist test`)
 
     try {
-      // const stockRef = firebase.firestore().collection("watchLists")
-      // const doc = await stockRef.doc(stockId).get()
+      const stockRef = firebase.firestore().collection("watchLists")
+      const doc = await stockRef.doc(stockId).get()
 
       // const portfolioRef = firebase.firestore().collection("portfolio")
       // const portfolioDoc = await portfolioRef.doc(userId).get()
@@ -189,29 +189,22 @@ const DetailScreen = ({ route, user }) => {
       //   return
       // }
 
-      // const boughtStock = {
-      //   id: stockId,
-      //   userId: userId,
-      //   symbol: stock["01. symbol"],
-      //   numShares: shares,
-      //   avgPrice: (shares * stock["05. price"]) / shares,
-      // }
-
-
+      const selectedStock = {
+        id: stockId,
+        price: stock["05. price"],
+        userId: userId,
+        symbol: stock["01. symbol"]
+      }
       // await portfolioRef.doc(userId).update({
       //   stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
       //   cash: updatedUserCash,
       // })
 
-      // await stockRef.doc(stockId).set(boughtStock)
+      await stockRef.doc(stockId).set(selectedStock)
     } catch (e) {
       alert(e)
     }
   }
-
-
-
-
 
   return (
     <KeyboardHide>
