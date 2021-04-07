@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 
 const WatchListItem = (props) => {
   return (
@@ -12,6 +12,9 @@ const WatchListItem = (props) => {
         <Text style={styles.subText}>Market Price</Text>
         <Text style={styles.numText}>{props.item.marketPrice}</Text>
       </View>
+      <Button
+        title="-"
+      />
     </View>
   )
 }
