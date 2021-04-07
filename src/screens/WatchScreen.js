@@ -5,13 +5,8 @@ import WatchListItem from "../components/watch/WatchListItem"
 import { firebase } from "../firebase/config"
 
 const WatchScreen = ({ navigation }) => {
-  const placeholder = [
-    { stockName: "IBM", company: "example", marketPrice: 200 },
-    { stockName: "IBMJ", company: "example", marketPrice: 200 },
-    { stockName: "IBMM", company: "example2", marketPrice: 100 },
-  ]
-
   const [watchlist, setWatchlist] = useState([])
+  const [stockPrice, setStockPrice] = useState([])
 
   useEffect(() => {
     getAllUserWatchlist()
@@ -29,9 +24,28 @@ const WatchScreen = ({ navigation }) => {
           setWatchlist([...watchlist, doc.data()])
         })
       })
+      .then(() => populateStockPrice())
       .catch((error) => {
         console.log("Error getting documents: ", error)
       })
+  }
+
+  const populateStockPrice = () => {
+    watchlist.forEach((stock) => {
+      fetchWatchlist(stock.symbol)
+    })
+  }
+
+  const fetchWatchlist = async (symbol) => {
+    const res = await fetch(
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=WAD33GWL180QLM8L`
+    )
+    res
+      .json()
+      .then((res) =>
+        setStockPrice([...stockPrice, res["Globale Quote"]["05. price"]])
+      )
+      .catch((err) => console.log(err))
   }
 
   return (
