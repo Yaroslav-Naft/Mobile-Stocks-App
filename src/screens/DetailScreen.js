@@ -147,64 +147,50 @@ const DetailScreen = ({ route, user }) => {
   }
 
   const addToWatchlist = async () => {
-
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
 
-    console.log(`watchlist test`)
-
     try {
       const stockRef = firebase.firestore().collection("watchLists")
+
       const doc = await stockRef.doc(stockId).get()
-
-      // const portfolioRef = firebase.firestore().collection("portfolio")
-      // const portfolioDoc = await portfolioRef.doc(userId).get()
-      // const portfolioData = portfolioDoc.data()
-      // const userCash = portfolioData.cash
-
-      // if (shares * stock["05. price"] > userCash) {
-      //   alert("Sorry, can't perform the transaction. Insufficient funds")
-      //   return
-      // }
-      // const updatedUserCash = userCash - shares * stock["05. price"]
-
-      // if (doc.exists) {
-      //   const docData = doc.data()
-      //   const prevNumShares = docData.numShares
-      //   const updatedNumShares = prevNumShares + shares
-
-      //   const prevAvgPrice = docData.avgPrice
-      //   const updatedAvgPrice =
-      //     (prevNumShares * prevAvgPrice + shares * stock["05. price"]) /
-      //     updatedNumShares
-
-      //   await stockRef.doc(stockId).update({
-      //     numShares: updatedNumShares,
-      //     avgPrice: updatedAvgPrice,
-      //   })
-
-      //   await portfolioRef.doc(userId).update({
-      //     cash: updatedUserCash,
-      //   })
-      //   return
-      // }
-
       const selectedStock = {
         id: stockId,
         price: stock["05. price"],
         userId: userId,
         symbol: stock["01. symbol"]
       }
-      // await portfolioRef.doc(userId).update({
-      //   stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
-      //   cash: updatedUserCash,
-      // })
-
       await stockRef.doc(stockId).set(selectedStock)
     } catch (e) {
       alert(e)
     }
   }
+
+  const remFromWatchlist = async () => {
+    const userId = user.id
+    const stockId = userId + stock["01. symbol"]
+
+    try {
+      const stockRef = firebase.firestore().collection("watchLists")
+      
+      const doc = await stockRef.doc(stockId).get()
+      const selectedStock = {
+        id: stockId,
+        price: stock["05. price"],
+        userId: userId,
+        symbol: stock["01. symbol"]
+      }
+      await stockRef.doc(stockId).delete()
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+
+
+
+
+
 
   return (
     <KeyboardHide>
@@ -249,7 +235,10 @@ const DetailScreen = ({ route, user }) => {
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => addToWatchlist()} style={styles.sellBtn}>
-                  <Text style={styles.sell}> Add to watchlist </Text>
+                  <Text style={styles.sell}> Add</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => remFromWatchlist()} style={styles.sellBtn}>
+                  <Text style={styles.sell}> Remove </Text>
                 </TouchableOpacity>
               </View>
             </View>
