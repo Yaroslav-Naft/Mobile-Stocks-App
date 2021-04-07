@@ -13,38 +13,40 @@ const WatchScreen = ({ navigation }) => {
   }, [])
 
   const getAllUserWatchlist = () => {
+    let copyWatchlist = []
     const userId = firebase.auth().currentUser.uid
     firebase
       .firestore()
-      .collection("watchlist")
+      .collection("watchlists")
       .where("userId", "==", userId)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          setWatchlist([...watchlist, doc.data()])
+          copyWatchlist.push(doc.data())
         })
+        setWatchlist(copyWatchlist)
       })
-      .then(() => populateStockPrice())
       .catch((error) => {
         console.log("Error getting documents: ", error)
       })
   }
 
-  const populateStockPrice = () => {
-    watchlist.forEach((stock) => {
-      fetchWatchlist(stock.symbol)
-    })
-  }
-
+  // render the up-to-date price
   const fetchWatchlist = async (symbol) => {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=WAD33GWL180QLM8L`
     )
     res
       .json()
-      .then((res) =>
-        setStockPrice([...stockPrice, res["Globale Quote"]["05. price"]])
-      )
+      .then((res) => {
+        setWatchlist([
+          ...watchlist,
+          {
+            symbol: res["Global Quote"]["01. symbol"],
+            price: res["Global Quote"]["05. price"],
+          },
+        ])
+      })
       .catch((err) => console.log(err))
   }
 
