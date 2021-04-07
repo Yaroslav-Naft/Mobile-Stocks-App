@@ -23,7 +23,9 @@ function WatchScreenNavigator({user}) {
             />
           ),
         }}
-      />
+      >
+      {(props) => <WatchScreen {...props} user={user} />}
+      </WatchScreenStack.Screen>
       <WatchScreenStack.Screen
         name="Detail"
         options={{
