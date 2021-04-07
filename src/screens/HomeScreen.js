@@ -7,20 +7,52 @@ import BoughtStockListItem from '../components/home/BoughtStockListItem'
 import { firebase } from '../firebase/config';
 
 const HomeScreen = ({ navigation }) => {
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
+  cosnt[arr, setArr] = useState([])
 
-  function fetchUser() {
-    const uId = firebase.auth().currentUser.uid
-    const userDoc = firebase.firestore().collection('portfolio').doc(uId)
-    userDoc.onSnapshot((doc) => {
-      setUser(doc.data());
+  const uId = firebase.auth().currentUser.uid
+  firebase.firestore().collection("stocks").where("userId", "==", uId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+      });
     })
-  }
-  useEffect(() => {
-    fetchUser();
-  }, [])
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
 
-  { console.log(user) }
+
+  // async function fetchUser() {
+  //   const uId = await firebase.auth().currentUser.uid
+  //   const stockDB = await firebase.firestore().collection('stocks')
+  //     .where("userId", "==", uId).get()
+  //   // userDoc.onSnapshot((doc) => {
+  //   //   setUser(doc.data());
+  //   // })
+
+  //   const dataST = await stockDB.data()
+  //   { console.log("whtat") }
+  //   { console.log(dataST) }
+  // }
+  // useEffect(() => {
+  //   fetchUser();
+  // }, [])
+
+  // { console.log(user) }
+
+
+  // const uId = firebase.auth().currentUser.uid
+  // const portfolioDB = firebase.firestore().collection('stocks').doc(uId)
+  // portfolioDB.where("userId", "==", uId)
+  //   .onSnapshot.forEach((doc) => {
+  //     console.log(doc.id, "=>", doc.data())
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error getting documents: ", error);
+  //   })
 
 
   const placeholder = [
