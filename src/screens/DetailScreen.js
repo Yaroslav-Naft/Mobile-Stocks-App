@@ -146,6 +146,73 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
+  const addToWatchlist = async () => {
+
+    const userId = user.id
+    const stockId = userId + stock["01. symbol"]
+
+    console.log(`watchlist test`)
+
+    try {
+      // const stockRef = firebase.firestore().collection("watchLists")
+      // const doc = await stockRef.doc(stockId).get()
+
+      // const portfolioRef = firebase.firestore().collection("portfolio")
+      // const portfolioDoc = await portfolioRef.doc(userId).get()
+      // const portfolioData = portfolioDoc.data()
+      // const userCash = portfolioData.cash
+
+      // if (shares * stock["05. price"] > userCash) {
+      //   alert("Sorry, can't perform the transaction. Insufficient funds")
+      //   return
+      // }
+      // const updatedUserCash = userCash - shares * stock["05. price"]
+
+      // if (doc.exists) {
+      //   const docData = doc.data()
+      //   const prevNumShares = docData.numShares
+      //   const updatedNumShares = prevNumShares + shares
+
+      //   const prevAvgPrice = docData.avgPrice
+      //   const updatedAvgPrice =
+      //     (prevNumShares * prevAvgPrice + shares * stock["05. price"]) /
+      //     updatedNumShares
+
+      //   await stockRef.doc(stockId).update({
+      //     numShares: updatedNumShares,
+      //     avgPrice: updatedAvgPrice,
+      //   })
+
+      //   await portfolioRef.doc(userId).update({
+      //     cash: updatedUserCash,
+      //   })
+      //   return
+      // }
+
+      // const boughtStock = {
+      //   id: stockId,
+      //   userId: userId,
+      //   symbol: stock["01. symbol"],
+      //   numShares: shares,
+      //   avgPrice: (shares * stock["05. price"]) / shares,
+      // }
+
+
+      // await portfolioRef.doc(userId).update({
+      //   stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
+      //   cash: updatedUserCash,
+      // })
+
+      // await stockRef.doc(stockId).set(boughtStock)
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+
+
+
+
   return (
     <KeyboardHide>
       <KeyboardAvoidingView
@@ -180,7 +247,6 @@ const DetailScreen = ({ route, user }) => {
                   keyboardType="numeric"
                   maxLength={4}
                 />
- 
               </View>
               <View style={styles.btns}>
                 <TouchableOpacity onPress={() => buy()} style={styles.buyBtn}>
@@ -188,6 +254,9 @@ const DetailScreen = ({ route, user }) => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => addToWatchlist()} style={styles.sellBtn}>
+                  <Text style={styles.sell}> Add to watchlist </Text>
                 </TouchableOpacity>
               </View>
             </View>
