@@ -158,9 +158,11 @@ const DetailScreen = ({ route, user }) => {
   const addToWatchlist = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
+    setToggleBtn(!toggleBtn)
 
-    // console.log(toggleBtn)
-
+    if(toggleBtn ==true){
+      
+      console.log('stock added')
     try {
       const stockRef = firebase.firestore().collection("watchLists")
 
@@ -175,6 +177,16 @@ const DetailScreen = ({ route, user }) => {
     } catch (e) {
       alert(e)
     }
+  } else {
+    try {
+      const stockRef = firebase.firestore().collection("watchLists")
+      await stockRef.doc(stockId).delete()
+    } catch (e) {
+      alert(e)
+    }
+    console.log('stock removed')
+  }
+    
   }
 
   const remFromWatchlist = async () => {
@@ -239,11 +251,8 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {setToggleBtn(!toggleBtn),addToWatchlist()}} style={styles.sellBtn}>
-                  <Text style={styles.sell}> Add</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => remFromWatchlist()} style={styles.sellBtn}>
-                  <Text style={styles.sell}> Remove </Text>
+                <TouchableOpacity onPress={() => addToWatchlist()} style={styles.sellBtn}>
+                  <Text style={styles.sell}> WatchList </Text>
                 </TouchableOpacity>
               </View>
             </View>
