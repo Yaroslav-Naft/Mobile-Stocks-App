@@ -8,8 +8,7 @@ import { firebase } from "../firebase/config"
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
-  const [shares, setShares] = React.useState(null)
-
+  const [shares, setShares] = useState(0)
   async function fetchData() {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`
@@ -173,7 +172,7 @@ const DetailScreen = ({ route, user }) => {
               <TextInput
               style={styles.input}
               onChangeNumber={setShare.parseInt()}
-              placeholder="Ple select the number of shares"
+              placeholder="Please select the number of shares"
               keyboardType="numeric"
               maxLength = {4}
               />
