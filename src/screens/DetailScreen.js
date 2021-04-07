@@ -34,10 +34,10 @@ const DetailScreen = ({ route, user }) => {
       const stockRef = firebase.firestore().collection("stocks")
       const doc = await stockRef.doc(stockId).get()
 
-      const portfolioRef = firebase.firestore().collection("portfolio")
-      const portfolioDoc = await portfolioRef.doc(userId).get()
-      const portfolioData = portfolioDoc.data()
-      const userCash = portfolioData.cash
+      const userRef = firebase.firestore().collection("users")
+      const userDoc = await userRef.doc(userId).get()
+      const userData = userDoc.data()
+      const userCash = userData.cash
 
       if (shares * stock["05. price"] > userCash) {
         alert("Sorry, can't perform the transaction. Insufficient funds")
@@ -60,7 +60,7 @@ const DetailScreen = ({ route, user }) => {
           avgPrice: updatedAvgPrice,
         })
 
-        await portfolioRef.doc(userId).update({
+        await userRef.doc(userId).update({
           cash: updatedUserCash,
         })
         return
@@ -74,9 +74,7 @@ const DetailScreen = ({ route, user }) => {
         avgPrice: (shares * stock["05. price"]) / shares,
       }
 
-
-      await portfolioRef.doc(userId).update({
-        stocks: firebase.firestore.FieldValue.arrayUnion(stockId),
+      await userRef.doc(userId).update({
         cash: updatedUserCash,
       })
 
@@ -111,17 +109,16 @@ const DetailScreen = ({ route, user }) => {
 
       const updatedNumShares = prevNumShares - shareSold
 
-      const portfolioRef = firebase.firestore().collection("portfolio")
-      const portfolioDoc = await portfolioRef.doc(userId).get()
-      const portfolioData = portfolioDoc.data()
-      const userCash = portfolioData.cash
+      const userRef = firebase.firestore().collection("users")
+      const userDoc = await userRef.doc(userId).get()
+      const userData = userDoc.data()
+      const userCash = userData.cash
       const updatedUserCash = userCash + shareSold * stock["05. price"]
 
       if (updatedNumShares <= 0) {
         try {
           await stockRef.doc(stockId).delete()
-          await portfolioRef.doc(userId).update({
-            stocks: firebase.firestore.FieldValue.arrayRemove(stockId),
+          await userRef.doc(userId).update({
             cash: updatedUserCash,
           })
         } catch (e) {
@@ -140,7 +137,7 @@ const DetailScreen = ({ route, user }) => {
         avgPrice: updatedAvgPrice,
       })
 
-      await portfolioRef.doc(userId).update({
+      await userRef.doc(userId).update({
         cash: updatedUserCash,
       })
     } catch (e) {
@@ -151,11 +148,6 @@ const DetailScreen = ({ route, user }) => {
   useEffect(() => {
     console.log(shares)
   }, [shares])
-
-  const updateText = (text) => {
-    setShares(+text)
-    console.log(shares)
-  }
 
   console.log("whatis")
   console.log(shares)
