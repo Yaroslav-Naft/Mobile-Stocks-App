@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }) => {
 
   function fetchUser() {
     const uId = firebase.auth().currentUser.uid
-    const userDoc = firebase.firestore().collection('users').doc(uId)
+    const userDoc = firebase.firestore().collection('portfolio').doc(uId)
     userDoc.onSnapshot((doc) => {
       setUser(doc.data());
     })
@@ -19,6 +19,8 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     fetchUser();
   }, [])
+
+  { console.log(user) }
 
 
   const placeholder = [

@@ -174,10 +174,10 @@ const DetailScreen = ({ route, user }) => {
           </View>
         </View>
       ) : (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )}
+          <View>
+            <Text>Loading...</Text>
+          </View>
+        )}
     </View>
   )
 }
