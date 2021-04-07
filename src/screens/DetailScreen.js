@@ -171,7 +171,7 @@ const DetailScreen = ({ route, user }) => {
           <View>
               <TextInput
               style={styles.input}
-              onChangeNumber={setShare.parseInt()}
+              onChangeNumber={setShares}
               placeholder="Please select the number of shares"
               keyboardType="numeric"
               maxLength = {4}
