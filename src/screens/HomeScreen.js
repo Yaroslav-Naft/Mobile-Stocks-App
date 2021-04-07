@@ -8,21 +8,27 @@ import { firebase } from '../firebase/config';
 
 const HomeScreen = ({ navigation }) => {
   // const [user, setUser] = useState();
-  cosnt[arr, setArr] = useState([])
+  const [stockArr, setStockArr] = useState([])
 
   const uId = firebase.auth().currentUser.uid
-  firebase.firestore().collection("stocks").where("userId", "==", uId)
+  const stockDB = firebase.firestore().collection("stocks")
+  stockDB.where("userId", "==", uId)
     .get()
     .then((querySnapshot) => {
+      const myStocks = []
       querySnapshot.forEach((doc) => {
+        myStocks.push(doc.data())
 
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
       });
+      setStockArr(myStocks)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
+
+  // console.log(stockArr)
 
 
   // async function fetchUser() {
