@@ -11,7 +11,6 @@ function WatchScreenNavigator({user}) {
     <WatchScreenStack.Navigator>
       <WatchScreenStack.Screen
         name="Watch"
-        component={WatchScreen}
         options={{
           headerRight: () => (
             <Button
