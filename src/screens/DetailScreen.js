@@ -9,9 +9,8 @@ const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   const [shares, setShares] = useState(0)
-  const [toggleBtn, setToggleBtn] = useState(true)
 
-
+  
   async function fetchData() {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`
@@ -25,12 +24,6 @@ const DetailScreen = ({ route, user }) => {
   useEffect(() => {
     fetchData()
   }, [])
-
-
-  // const toggleWatchList = () => {
-  //   setToggleBtn(!toggleBtn)
-  //   console.log(toggleBtn)
-  // }
 
   const buy = async () => {
 
@@ -155,23 +148,12 @@ const DetailScreen = ({ route, user }) => {
     }
   }
 
-  const addToWatchlist = async () => {
+  const toggleWatchlist = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
     const stockRef = firebase.firestore().collection("watchLists")
     const doc = await stockRef.doc(stockId).get()
-
-  //Toggle state when pressed
-    setToggleBtn(!toggleBtn)
-
-  //Condition for existing watchlist stock
-    // if (doc.exists) {
-    //   setToggleBtn(false)
-    //   return
-    // }
-
-    if(toggleBtn == true){
-      
+    if (!doc.exists) {
       console.log('stock added')
     try {
       const stockRef = firebase.firestore().collection("watchLists")
@@ -240,7 +222,7 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => addToWatchlist()} style={styles.sellBtn}>
+                <TouchableOpacity onPress={() => toggleWatchlist()} style={styles.sellBtn}>
                   <Text style={styles.sell}> WatchList </Text>
                 </TouchableOpacity>
               </View>
