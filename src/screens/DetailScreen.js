@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import {
   StyleSheet,
   View,
+  ScrollView,
   Text,
   TextInput,
   KeyboardAvoidingView,
@@ -14,6 +15,7 @@ const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   const [shares, setShares] = useState(0)
+  const [watch, setWatch] = useState(false)
 
   async function fetchData() {
     const res = await fetch(
@@ -25,8 +27,21 @@ const DetailScreen = ({ route, user }) => {
       .catch((err) => setErrors(err))
   }
 
+  async function checkWatch() {
+    const userId = user.id
+    const stockId = userId + stock["01. symbol"]
+    const watchRef = firebase.firestore().collection("watchLists")
+    const doc = await watchRef.doc(stockId).get()
+    if (!doc.exists) {
+      setWatch(false)
+    } else {
+      setWatch(true)
+    }
+  }
+
   useEffect(() => {
     fetchData()
+    checkWatch()
   }, [])
 
   const buy = async () => {
@@ -151,38 +166,40 @@ const DetailScreen = ({ route, user }) => {
   const toggleWatchlist = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
-    const stockRef = firebase.firestore().collection("watchLists")
-    const doc = await stockRef.doc(stockId).get()
+    const watchRef = firebase.firestore().collection("watchLists")
+    const doc = await watchRef.doc(stockId).get()
     if (!doc.exists) {
       console.log("stock added")
       try {
-        const stockRef = firebase.firestore().collection("watchLists")
-
         const selectedStock = {
           id: stockId,
           price: stock["05. price"],
           userId: userId,
-          symbol: stock["01. symbol"],
+          symbol: stock["01. symbol"]
         }
-        await stockRef.doc(stockId).set(selectedStock)
+        await watchRef.doc(stockId).set(selectedStock)
+        setWatch(true)
       } catch (e) {
         alert(e)
       }
     } else {
       try {
-        const stockRef = firebase.firestore().collection("watchLists")
-        await stockRef.doc(stockId).delete()
+        await watchRef.doc(stockId).delete()
+        setWatch(false)
       } catch (e) {
         alert(e)
       }
-      console.log("stock removed")
+      console.log('stock removed')
     }
   }
 
   return (
     <KeyboardHide>
-      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
-        <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={"padding"}
+        style={styles.container}
+      >
+        <ScrollView>
           {stock ? (
             <View>
               <View style={styles.round}>
@@ -217,20 +234,20 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => toggleWatchlist()}
-                  style={styles.sellBtn}
+                <TouchableOpacity 
+                  onPress={() => toggleWatchlist()} 
+                  style={!watch ? styles.sellBtn : styles.buyBtn}
                 >
-                  <Text style={styles.sell}> WatchList </Text>
+                  <Text style={!watch ? styles.sell : styles.buy}> {!watch ? "Watch" : "Unwatch"} </Text>
                 </TouchableOpacity>
               </View>
             </View>
           ) : (
-            <View>
-              <Text>Loading...</Text>
-            </View>
-          )}
-        </View>
+              <View>
+                <Text>Loading...</Text>
+              </View>
+            )}
+        </ScrollView>
       </KeyboardAvoidingView>
     </KeyboardHide>
   )
@@ -251,6 +268,7 @@ const styles = StyleSheet.create({
     borderRadius: 300,
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 30,
   },
   symbol: {
     fontSize: 30,
@@ -284,7 +302,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    margin: 30,
+    marginBottom: 30,
   },
   buy: {
     color: "white",
@@ -301,6 +319,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
     borderRadius: 30,
+    marginBottom: 30,
   },
   sell: {
     color: "#457B9D",
