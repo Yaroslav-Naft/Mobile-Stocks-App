@@ -1,31 +1,71 @@
-import React from 'react'
-import { StyleSheet, Text, FlatList } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import WatchListItem from '../components/watch/WatchListItem'
+import React, { useEffect, useState } from "react"
+import { StyleSheet, Text, FlatList } from "react-native"
+import { TouchableOpacity } from "react-native-gesture-handler"
+import WatchListItem from "../components/watch/WatchListItem"
+import { firebase } from "../firebase/config"
 
-const WatchScreen = ({navigation, user}) => {
-  const placeholder = [ 
-    { stockName: "IBM", company: "example", marketPrice: 200 },
-    { stockName: "IBMJ", company: "example", marketPrice: 200, },
-    { stockName: "IBMM", company: "example2", marketPrice: 100, }
-  ]
-  console.log('the user is')
-  console.log(user)
+const WatchScreen = ({ navigation }) => {
+  const [watchlist, setWatchlist] = useState([])
 
-  return(
+  useEffect(() => {
+    getAllUserWatchlist()
+  }, [watchlist])
+
+  const getAllUserWatchlist = () => {
+    let copyWatchlist = []
+    const userId = firebase.auth().currentUser.uid
+    firebase
+      .firestore()
+      .collection("watchLists")
+      .where("userId", "==", userId)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          copyWatchlist.push(doc.data())
+        })
+        setWatchlist(copyWatchlist)
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error)
+      })
+  }
+
+  // render the up-to-date price
+  const fetchWatchlist = async (symbol) => {
+    let copyWatchlist = []
+    const res = await fetch(
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=WAD33GWL180QLM8L`
+    )
+    res
+      .json()
+      .then((res) => {
+        setWatchlist([
+          ...watchlist,
+          {
+            symbol: res["Global Quote"]["01. symbol"],
+            price: res["Global Quote"]["05. price"],
+          },
+        ])
+      })
+      .catch((err) => console.log(err))
+  }
+
+  return (
     <FlatList
       ListHeaderComponent={
         <>
           <Text style={styles.title}>My Watched Stock</Text>
         </>
       }
-      keyExtractor={item => item.stockName}
-      data={placeholder}
+      keyExtractor={(item) => item.symbol}
+      data={watchlist}
       renderItem={({ item }) => {
         return (
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('Detail', item.stockName)
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Detail", item.symbol)
+            }}
+          >
             <WatchListItem item={item} />
           </TouchableOpacity>
         )
@@ -36,11 +76,11 @@ const WatchScreen = ({navigation, user}) => {
 
 const styles = StyleSheet.create({
   title: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 20,
-    fontWeight: 'bold',
-    textTransform: 'uppercase'
-  }
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
 })
 
 export default WatchScreen

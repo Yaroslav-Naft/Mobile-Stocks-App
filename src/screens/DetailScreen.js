@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, View, ScrollView, Text, TextInput, KeyboardAvoidingView } from "react-native"
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 import { firebase } from "../firebase/config"
-
 
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
@@ -166,7 +172,7 @@ const DetailScreen = ({ route, user }) => {
     const watchRef = firebase.firestore().collection("watchLists")
     const doc = await watchRef.doc(stockId).get()
     if (!doc.exists) {
-      console.log('stock added')
+      console.log("stock added")
       try {
         const selectedStock = {
           id: stockId,
@@ -217,7 +223,7 @@ const DetailScreen = ({ route, user }) => {
               <View>
                 <TextInput
                   style={styles.input}
-                  value={shares}
+                  value={shares.toString()}
                   onChangeText={(e) => setShares(+e)}
                   placeholder="Please select the number of shares"
                   keyboardType="numeric"
@@ -231,7 +237,10 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleWatchlist()} style={!watch ? styles.sellBtn : styles.buyBtn}>
+                <TouchableOpacity 
+                  onPress={() => toggleWatchlist()} 
+                  style={!watch ? styles.sellBtn : styles.buyBtn}
+                >
                   <Text style={!watch ? styles.sell : styles.buy}> {!watch ? "Watch" : "Unwatch"} </Text>
                 </TouchableOpacity>
               </View>
