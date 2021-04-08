@@ -41,11 +41,8 @@ const DetailScreen = ({ route, user }) => {
 
   useEffect(() => {
     fetchData()
-  }, [])
-
-  useEffect(() => {
     checkWatch()
-  }, [!stock])
+  }, [])
 
   const buy = async () => {
     const userId = user.id
