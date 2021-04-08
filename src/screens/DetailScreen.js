@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react"
-import { StyleSheet, View, Text, TextInput, KeyboardAvoidingView } from "react-native"
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { KeyboardHide } from "../components/misc/KeyboardHide"
 import { firebase } from "../firebase/config"
-
 
 const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   const [shares, setShares] = useState(0)
 
-  
   async function fetchData() {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`
@@ -26,7 +30,6 @@ const DetailScreen = ({ route, user }) => {
   }, [])
 
   const buy = async () => {
-
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
 
@@ -151,38 +154,34 @@ const DetailScreen = ({ route, user }) => {
     const stockRef = firebase.firestore().collection("watchLists")
     const doc = await stockRef.doc(stockId).get()
     if (!doc.exists) {
-      console.log('stock added')
-    try {
-      const stockRef = firebase.firestore().collection("watchLists")
+      console.log("stock added")
+      try {
+        const stockRef = firebase.firestore().collection("watchLists")
 
-      const selectedStock = {
-        id: stockId,
-        price: stock["05. price"],
-        userId: userId,
-        symbol: stock["01. symbol"]
+        const selectedStock = {
+          id: stockId,
+          price: stock["05. price"],
+          userId: userId,
+          symbol: stock["01. symbol"],
+        }
+        await stockRef.doc(stockId).set(selectedStock)
+      } catch (e) {
+        alert(e)
       }
-      await stockRef.doc(stockId).set(selectedStock)
-    } catch (e) {
-      alert(e)
+    } else {
+      try {
+        const stockRef = firebase.firestore().collection("watchLists")
+        await stockRef.doc(stockId).delete()
+      } catch (e) {
+        alert(e)
+      }
+      console.log("stock removed")
     }
-  } else {
-    try {
-      const stockRef = firebase.firestore().collection("watchLists")
-      await stockRef.doc(stockId).delete()
-    } catch (e) {
-      alert(e)
-    }
-    console.log('stock removed')
-  }
-    
   }
 
   return (
     <KeyboardHide>
-      <KeyboardAvoidingView
-        behavior={"padding"}
-        style={styles.container}
-      >
+      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
         <View style={styles.container}>
           {stock ? (
             <View>
@@ -204,7 +203,7 @@ const DetailScreen = ({ route, user }) => {
               <View>
                 <TextInput
                   style={styles.input}
-                  value={shares}
+                  value={shares.toString()}
                   onChangeText={(e) => setShares(+e)}
                   placeholder="Please select the number of shares"
                   keyboardType="numeric"
@@ -218,16 +217,19 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleWatchlist()} style={styles.sellBtn}>
+                <TouchableOpacity
+                  onPress={() => toggleWatchlist()}
+                  style={styles.sellBtn}
+                >
                   <Text style={styles.sell}> WatchList </Text>
                 </TouchableOpacity>
               </View>
             </View>
           ) : (
-              <View>
-                <Text>Loading...</Text>
-              </View>
-            )}
+            <View>
+              <Text>Loading...</Text>
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     </KeyboardHide>
