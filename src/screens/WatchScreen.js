@@ -16,7 +16,7 @@ const WatchScreen = ({ navigation }) => {
     const userId = firebase.auth().currentUser.uid
     firebase
       .firestore()
-      .collection("watchlists")
+      .collection("watchLists")
       .where("userId", "==", userId)
       .get()
       .then((querySnapshot) => {
@@ -32,19 +32,26 @@ const WatchScreen = ({ navigation }) => {
 
   // render the up-to-date price
   const fetchWatchlist = async (symbol) => {
+    let copyWatchlist = []
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=WAD33GWL180QLM8L`
     )
     res
       .json()
       .then((res) => {
-        setWatchlist([
-          ...watchlist,
-          {
+        // setWatchlist([
+        //   ...watchlist,
+        //   {
+        //     symbol: res["Global Quote"]["01. symbol"],
+        //     price: res["Global Quote"]["05. price"],
+        //   },
+        // ])
+        const stockObj = {
             symbol: res["Global Quote"]["01. symbol"],
             price: res["Global Quote"]["05. price"],
           },
-        ])
+
+        // copyWatchlist.push(stockObj)
       })
       .catch((err) => console.log(err))
   }
