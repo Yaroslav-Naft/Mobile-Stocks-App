@@ -9,7 +9,7 @@ const WatchScreen = ({ navigation }) => {
 
   useEffect(() => {
     getAllUserWatchlist()
-  }, [])
+  }, [watchlist])
 
   const getAllUserWatchlist = () => {
     let copyWatchlist = []
