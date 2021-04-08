@@ -9,8 +9,8 @@ const DetailScreen = ({ route, user }) => {
   const [hasError, setErrors] = useState(false)
   const [stock, setStock] = useState()
   const [shares, setShares] = useState(0)
+  const [watch, setWatch] = useState(false)
 
-  
   async function fetchData() {
     const res = await fetch(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${route.params}&apikey=WAD33GWL180QLM8L`
@@ -21,12 +21,27 @@ const DetailScreen = ({ route, user }) => {
       .catch((err) => setErrors(err))
   }
 
+  async function checkWatch() {
+    const userId = user.id
+    const stockId = userId + stock["01. symbol"]
+    const watchRef = firebase.firestore().collection("watchLists")
+    const doc = await watchRef.doc(stockId).get()
+    if (!doc.exists) {
+      setWatch(false)
+    } else {
+      setWatch(true)
+    }
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
 
-  const buy = async () => {
+  useEffect(() => {
+    checkWatch()
+  }, [!stock])
 
+  const buy = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
 
@@ -148,33 +163,31 @@ const DetailScreen = ({ route, user }) => {
   const toggleWatchlist = async () => {
     const userId = user.id
     const stockId = userId + stock["01. symbol"]
-    const stockRef = firebase.firestore().collection("watchLists")
-    const doc = await stockRef.doc(stockId).get()
+    const watchRef = firebase.firestore().collection("watchLists")
+    const doc = await watchRef.doc(stockId).get()
     if (!doc.exists) {
       console.log('stock added')
-    try {
-      const stockRef = firebase.firestore().collection("watchLists")
-
-      const selectedStock = {
-        id: stockId,
-        price: stock["05. price"],
-        userId: userId,
-        symbol: stock["01. symbol"]
+      try {
+        const selectedStock = {
+          id: stockId,
+          price: stock["05. price"],
+          userId: userId,
+          symbol: stock["01. symbol"]
+        }
+        await watchRef.doc(stockId).set(selectedStock)
+        setWatch(true)
+      } catch (e) {
+        alert(e)
       }
-      await stockRef.doc(stockId).set(selectedStock)
-    } catch (e) {
-      alert(e)
+    } else {
+      try {
+        await watchRef.doc(stockId).delete()
+        setWatch(false)
+      } catch (e) {
+        alert(e)
+      }
+      console.log('stock removed')
     }
-  } else {
-    try {
-      const stockRef = firebase.firestore().collection("watchLists")
-      await stockRef.doc(stockId).delete()
-    } catch (e) {
-      alert(e)
-    }
-    console.log('stock removed')
-  }
-    
   }
 
   return (
@@ -218,8 +231,8 @@ const DetailScreen = ({ route, user }) => {
                 <TouchableOpacity onPress={() => sell()} style={styles.sellBtn}>
                   <Text style={styles.sell}> SELL </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleWatchlist()} style={styles.sellBtn}>
-                  <Text style={styles.sell}> WatchList </Text>
+                <TouchableOpacity onPress={() => toggleWatchlist()} style={!watch ? styles.sellBtn : styles.buyBtn}>
+                  <Text style={!watch ? styles.sell : styles.buy}> {!watch ? "Watch" : "Unwatch"} </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -249,7 +262,7 @@ const styles = StyleSheet.create({
     borderRadius: 300,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30,
+    marginVertical: 30,
   },
   symbol: {
     fontSize: 30,
@@ -283,7 +296,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    margin: 30,
+    marginBottom: 30,
   },
   buy: {
     color: "white",
