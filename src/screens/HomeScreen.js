@@ -7,7 +7,6 @@ import BoughtStockListItem from '../components/home/BoughtStockListItem'
 import { firebase } from '../firebase/config';
 
 const HomeScreen = ({ navigation }) => {
-  const [user, setUser] = useState();
   const [stockArr, setStockArr] = useState([])
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-  }, [user])
+  }, [stockArr])
 
   const placeholder = [
     { stockName: "IBM", company: "example", boughtAmount: 100, marketPrice: 200, boughtPrice: 100 },
