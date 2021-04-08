@@ -39,19 +39,13 @@ const WatchScreen = ({ navigation }) => {
     res
       .json()
       .then((res) => {
-        // setWatchlist([
-        //   ...watchlist,
-        //   {
-        //     symbol: res["Global Quote"]["01. symbol"],
-        //     price: res["Global Quote"]["05. price"],
-        //   },
-        // ])
-        const stockObj = {
+        setWatchlist([
+          ...watchlist,
+          {
             symbol: res["Global Quote"]["01. symbol"],
             price: res["Global Quote"]["05. price"],
           },
-
-        // copyWatchlist.push(stockObj)
+        ])
       })
       .catch((err) => console.log(err))
   }
